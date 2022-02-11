@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FrameLayout ly_content;
 
     //Fragment
-    private MyFragment fg1,fg2,fg3;
+    private MyFragment fg1,fg2;
+    private mineFragment fg3;
     private FragmentManager fManager;
 
     @Override
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setSelected();
                 tab_menu_mine.setSelected(true);
                 if(fg3 == null){
-                    fg3 = new MyFragment("第三个Fragment");
+                    fg3 = new mineFragment();
                     fTransaction.add(R.id.ly_content,fg3);
                 }else{
                     fTransaction.show(fg3);
