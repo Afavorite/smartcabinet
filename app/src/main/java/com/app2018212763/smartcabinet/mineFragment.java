@@ -31,6 +31,8 @@ public class mineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), loginActivity.class);
+                startActivity(intent);
             }
         });
     }
