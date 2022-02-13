@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import java.sql.Connection;
 
-public class registerActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

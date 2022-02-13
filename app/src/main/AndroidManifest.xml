@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Smartcabinet">
         <activity
-            android:name=".loginActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".registerActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity android:name=".MainActivity">
             <intent-filter>

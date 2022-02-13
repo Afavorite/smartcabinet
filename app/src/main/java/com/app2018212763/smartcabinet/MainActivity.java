@@ -18,8 +18,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FrameLayout ly_content;
 
     //Fragment
-    private MyFragment fg1,fg2;
-    private mineFragment fg3;
+    private HomeFragment fg1;
+    private AddFragment fg2;
+    private MineFragment fg3;
     private FragmentManager fManager;
 
     @Override
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setSelected();
                 tab_menu_home.setSelected(true);
                 if(fg1 == null){
-                    fg1 = new MyFragment("第一个Fragment");
+                    fg1 = new HomeFragment();
                     fTransaction.add(R.id.ly_content,fg1);
                 }else{
                     fTransaction.show(fg1);
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setSelected();
                 tab_menu_add.setSelected(true);
                 if(fg2 == null){
-                    fg2 = new MyFragment("第二个Fragment");
+                    fg2 = new AddFragment();
                     fTransaction.add(R.id.ly_content,fg2);
                 }else{
                     fTransaction.show(fg2);
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setSelected();
                 tab_menu_mine.setSelected(true);
                 if(fg3 == null){
-                    fg3 = new mineFragment();
+                    fg3 = new MineFragment();
                     fTransaction.add(R.id.ly_content,fg3);
                 }else{
                     fTransaction.show(fg3);
