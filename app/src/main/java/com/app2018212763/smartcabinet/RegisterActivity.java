@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
     //数据库用户名
     String userName = "root";
     //数据库密码
-    String sqlpassword = "Lkw121731@";
+    String sqlpassword = "Lkw121731";
 
     //UI
     Connection connection = null;
@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                             //2、获取与数据库的连接
                             connection = DriverManager.getConnection(url, userName, sqlpassword);
                             System.out.println("连接数据库成功！！！");
-                            Toast.makeText(RegisterActivity.this, "连接数据库成功", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RegisterActivity.this, "连接数据库成功", Toast.LENGTH_SHORT).show();
                             //3.sql添加数据语句
                             String sql = "INSERT INTO users (stu_id, password) VALUES ( ?, ?)";
                             if (!id.equals("") && !password.equals("")) {//判断输入框是否有数据
