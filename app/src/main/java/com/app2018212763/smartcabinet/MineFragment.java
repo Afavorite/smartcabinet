@@ -28,7 +28,7 @@ public class MineFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
             }
