@@ -17,18 +17,19 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="97dp"
         android:layout_marginTop="114dp" />
+
     <EditText
+        android:id="@+id/reg_stu_id"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:id="@+id/reg_stu_id"
-        android:hint="输入学号"
-        android:textSize="13sp"
-        android:background="@null"
         android:layout_alignBottom="@+id/reg_name"
-        android:layout_toRightOf="@+id/reg_name"
-        android:layout_toEndOf="@+id/reg_name"
+        android:layout_marginStart="27dp"
         android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp" />
+        android:layout_toEndOf="@+id/reg_name"
+        android:layout_toRightOf="@+id/reg_name"
+        android:background="@null"
+        android:hint="输入学号"
+        android:textSize="13sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

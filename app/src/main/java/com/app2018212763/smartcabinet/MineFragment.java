@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class MineFragment extends Fragment {
 
     public MineFragment() {
@@ -24,13 +26,14 @@ public class MineFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Button button = (Button) getActivity().findViewById(R.id.btn_login);
+        Button button = (Button) Objects.requireNonNull(getActivity()).findViewById(R.id.btn_goto_login);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+
             }
         });
     }
