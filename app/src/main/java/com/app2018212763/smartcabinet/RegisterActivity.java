@@ -2,6 +2,7 @@ package com.app2018212763.smartcabinet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         psw_2 = (EditText) findViewById(R.id.reg_stu_confirm_password);
     }
 
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg){
@@ -66,9 +68,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_register:{
-                if( ! psw_1.getText().toString().equals(psw_2.getText().toString())){
+                if (psw_1.getText().toString().length() < 8 || psw_1.getText().toString().length() > 20 ){
+                    Toast.makeText(RegisterActivity.this,"密码格式不正确",Toast.LENGTH_LONG).show();
+                }
+                else if( ! psw_1.getText().toString().equals(psw_2.getText().toString())){
                     Toast.makeText(RegisterActivity.this,"两次密码不一致！",Toast.LENGTH_LONG).show();
-                }else {
+                }
+                else if (id.length() != 10){
+                    Toast.makeText(RegisterActivity.this,"学号格式不正确",Toast.LENGTH_LONG).show();
+                }
+
+                else {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

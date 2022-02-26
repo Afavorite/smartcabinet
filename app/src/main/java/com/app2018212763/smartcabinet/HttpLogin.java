@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 public class HttpLogin {
 
     public static String LoginByPost(String id,String password){
-        String address = "http://39.107.226.190:8080/smartcabinet_server/androidregister";
+        String address = "http://39.107.226.190:8080/smartcabinet_server/androidlogin";
         String result = "";
         try{
             URL url = new URL(address);//初始化URL

@@ -29,6 +29,7 @@
         android:layout_toRightOf="@+id/reg_name"
         android:background="@null"
         android:hint="输入学号"
+        android:inputType="number"
         android:textSize="13sp" />
     <TextView
         android:layout_width="wrap_content"
@@ -45,6 +46,8 @@
         android:layout_below="@+id/reg_stu_id"
         android:textSize="13sp"
         android:hint="输入密码"
+        android:inputType="textPassword"
+        android:maxLength="20"
         android:background="@null"
         android:layout_toRightOf="@+id/reg_password"
         android:layout_marginTop="15dp"
@@ -66,6 +69,8 @@
         android:layout_below="@+id/reg_stu_password"
         android:textSize="13sp"
         android:hint="再次输入密码"
+        android:inputType="textPassword"
+        android:maxLength="20"
         android:background="@null"
         android:layout_toRightOf="@+id/reg_confirm_password"
         android:layout_marginTop="15dp"

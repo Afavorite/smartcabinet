@@ -29,6 +29,7 @@
         android:layout_toRightOf="@+id/login_name"
         android:background="@null"
         android:hint="输入学号"
+        android:inputType="number"
         android:textSize="13sp" />
     <TextView
         android:layout_width="wrap_content"
@@ -45,6 +46,7 @@
         android:layout_below="@+id/login_stu_id"
         android:textSize="13sp"
         android:hint="输入密码"
+        android:inputType="textPassword"
         android:background="@null"
         android:layout_toRightOf="@+id/login_password"
         android:layout_marginTop="15dp"

@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg){
@@ -55,6 +56,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     try {
                         if (result.equals("success")) {
                             Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
+                        }
+                        else if (result.equals("fail")){
+                            Toast.makeText(LoginActivity.this,"登录失败！",Toast.LENGTH_SHORT).show();
                         }
                     }catch (NullPointerException e){
                         e.printStackTrace();
