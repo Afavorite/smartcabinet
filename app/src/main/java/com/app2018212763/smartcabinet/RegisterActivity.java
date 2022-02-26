@@ -55,6 +55,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             setResult(ResultCode,intent);//向上一级发送数据
                             finish();
                         }
+                        else {
+                            Toast.makeText(RegisterActivity.this,"注册失败！",Toast.LENGTH_LONG).show();
+                        }
                     }catch (NullPointerException e){
                         e.printStackTrace();
                     }
