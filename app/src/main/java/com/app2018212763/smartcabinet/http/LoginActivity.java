@@ -1,4 +1,4 @@
-package com.app2018212763.smartcabinet;
+package com.app2018212763.smartcabinet.http;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.app2018212763.smartcabinet.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -89,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             break;
             case R.id.btn_goto_register:{
-                Intent intent = new Intent(this,RegisterActivity.class);
+                Intent intent = new Intent(this, RegisterActivity.class);
                 startActivityForResult(intent,RequestCode);
             }
             break;

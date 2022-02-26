@@ -1,4 +1,4 @@
-package com.app2018212763.smartcabinet;
+package com.app2018212763.smartcabinet.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
