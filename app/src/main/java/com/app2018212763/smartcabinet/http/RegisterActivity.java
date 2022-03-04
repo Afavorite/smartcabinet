@@ -46,9 +46,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
                     try {
                         if (result.equals("success")) {
+                            Toast.makeText(RegisterActivity.this,"注册成功！",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent();
                             intent.putExtra("id",id.getText().toString());
-                            intent.putExtra("password",psw_1.getText().toString());
+//                            intent.putExtra("password",psw_1.getText().toString());
                             setResult(ResultCode,intent);//向上一级发送数据
                             finish();
                         }

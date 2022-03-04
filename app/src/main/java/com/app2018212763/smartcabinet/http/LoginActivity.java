@@ -3,7 +3,9 @@ package com.app2018212763.smartcabinet.http;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.app2018212763.smartcabinet.MainActivity;
+import com.app2018212763.smartcabinet.MineFragment;
 import com.app2018212763.smartcabinet.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -33,14 +37,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         id = (EditText) findViewById(R.id.login_stu_id);
         password = (EditText) findViewById(R.id.login_stu_password);
 
+        SharedPreferences sp = getSharedPreferences("userid",MODE_PRIVATE);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {//注册成功从注册界面回传信息
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&resultCode==2){
             id.setText(data.getStringExtra("id"));
-            password.setText(data.getStringExtra("password"));
+//            password.setText(data.getStringExtra("password"));
         }
     }
 
@@ -58,6 +63,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     try {
                         if (result.equals("success")) {
                             Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
+                            //注册成功保留登录信息
+                            SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
+                            sp.edit().putString("id",id.getText().toString()).commit();
+
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
                         }
                         else if (result.equals("fail")){
                             Toast.makeText(LoginActivity.this,"登录失败！",Toast.LENGTH_SHORT).show();

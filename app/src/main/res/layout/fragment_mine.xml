@@ -16,20 +16,21 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:id="@+id/userimage"
+            android:id="@+id/showuserimage"
             android:layout_gravity="center"/>
         <TextView
+            android:id="@+id/showuserid"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20sp"/>
 
     </LinearLayout>
-
-    <!-- TODO: Update blank fragment layout -->
     <Button
         android:id="@+id/btn_goto_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登录"
+        android:text="@string/btn_login"
         android:background="@color/gray"/>
     <TextView
         android:layout_width="match_parent"
@@ -38,7 +39,7 @@
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="注销"
+        android:text="@string/btn_logout"
         android:background="@color/gray"/>
 
 </LinearLayout>
