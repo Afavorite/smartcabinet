@@ -20,13 +20,13 @@
             android:layout_weight="1"
             android:background="@drawable/tab_menu_background"
             android:drawablePadding="3dp"
-            android:drawableTop="@drawable/tab_menu_home"
             android:layout_gravity="center"
             android:padding="5dp"
             android:text="@string/tab_menu_text_home"
             android:textColor="@drawable/tab_menu_text"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:drawableTopCompat="@drawable/tab_menu_home" />
 
         <TextView
             android:id="@+id/tab_menu_add"
@@ -35,13 +35,13 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/tab_menu_background"
-            android:drawableTop="@drawable/tab_menu_add"
             android:drawablePadding="3dp"
             android:padding="5dp"
             android:text="@string/tab_menu_text_add"
             android:textColor="@drawable/tab_menu_text"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:drawableTopCompat="@drawable/tab_menu_add" />
 
         <TextView
             android:id="@+id/tab_menu_mine"
@@ -50,20 +50,20 @@
             android:layout_weight="1"
             android:background="@drawable/tab_menu_background"
             android:drawablePadding="3dp"
-            android:drawableTop="@drawable/tab_menu_mine"
             android:layout_gravity="center"
             android:padding="5dp"
             android:text="@string/tab_menu_text_mine"
             android:textColor="@drawable/tab_menu_text"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:drawableTopCompat="@drawable/tab_menu_mine" />
     </LinearLayout>
     <View
         android:id="@+id/div_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="2px"
+        android:layout_height="0.125dp"
         android:layout_above="@+id/tab_bar"
-        android:background="@color/gray"/>
+        android:background="@color/div_gray"/>
 
     <FrameLayout
         android:id="@+id/ly_content"
