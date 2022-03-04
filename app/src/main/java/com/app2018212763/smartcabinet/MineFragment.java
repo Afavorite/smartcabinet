@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.app2018212763.smartcabinet.http.LoginActivity;
 
 import java.util.Objects;
 
 public class MineFragment extends Fragment {
+    private ImageView userimage;
 
     public MineFragment() {
         // Required empty public constructor
@@ -21,7 +23,12 @@ public class MineFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+
+        userimage = view.findViewById(R.id.userimage);//头像显示
+        userimage.setImageResource(R.mipmap.userimage);
+
+        return view;
     }
 
     @Override
@@ -31,7 +38,6 @@ public class MineFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
 
