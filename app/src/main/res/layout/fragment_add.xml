@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_goto_add"
+            android:id="@+id/btn_goto_addorder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_goto_addorder"
