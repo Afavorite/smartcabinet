@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app2018212763.smartcabinet.MainActivity;
-import com.app2018212763.smartcabinet.MineFragment;
 import com.app2018212763.smartcabinet.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
