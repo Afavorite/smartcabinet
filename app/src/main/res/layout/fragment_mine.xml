@@ -31,15 +31,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_login"
-        android:background="@color/gray"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_marginHorizontal="20dp"
+        android:padding="12dp"/>
+
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_logout"
-        android:background="@color/gray"/>
+        android:layout_marginHorizontal="20dp"
+        android:padding="12dp"/>
 
 </LinearLayout>

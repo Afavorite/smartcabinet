@@ -3,13 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddFragment">
+    tools:context=".AddFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="管理您的订单"
+        android:textSize="20dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="新建fragment" />
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_goto_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_goto_addorder"
+            android:layout_marginHorizontal="20dp"
+            android:padding="12dp"/>
+        <Button
+            android:id="@+id/btn_goto_showorder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_goto_showorder"
+            android:layout_marginHorizontal="20dp"
+            android:padding="12dp"/>
+        <Button
+            android:id="@+id/btn_goto_delorder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_goto_delorder"
+            android:layout_marginHorizontal="20dp"
+            android:padding="12dp"/>
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -68,8 +68,7 @@ public class MineFragment extends Fragment {
     //检测是否登录
     public boolean checklogin(){
         SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
-        if (!sp.getString("id","").equals("")){return true;}
-        else {return false;}
+        return !sp.getString("id", "").equals("");
     }
 
 

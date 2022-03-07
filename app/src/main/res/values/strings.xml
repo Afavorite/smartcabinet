@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">智慧储物</string>
     <string name="tab_menu_text_home">首页</string>
-    <string name="tab_menu_text_add">新建</string>
-    <string name="tab_menu_text_mine">我的</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tab_menu_text_add">订单</string>
+    <string name="tab_menu_text_mine">账号</string>
+
     <string name="btn_login">登录</string>
     <string name="btn_logout">注销</string>
+    <string name="btn_goto_addorder">新建订单</string>
+    <string name="btn_goto_showorder">查看订单</string>
+    <string name="btn_goto_delorder">删除订单</string>
 </resources>
