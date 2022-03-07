@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app2018212763.smartcabinet.http.LoginActivity;
+import com.app2018212763.smartcabinet.Login.LoginActivity;
 
 import java.util.Objects;
 

@@ -23,10 +23,10 @@
             android:name=".order.OrderAddActivity"
             android:exported="false" />
         <activity
-            android:name=".http.LoginActivity"
+            android:name=".Login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".http.RegisterActivity"
+            android:name=".Login.RegisterActivity"
             android:exported="false" />
         <activity android:name=".MainActivity">
             <intent-filter>

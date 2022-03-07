@@ -1,9 +1,8 @@
-package com.app2018212763.smartcabinet.http;
+package com.app2018212763.smartcabinet.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
