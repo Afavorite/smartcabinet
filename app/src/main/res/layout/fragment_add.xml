@@ -19,6 +19,84 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/text_order_endhour"
+            android:layout_width="120dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:hint="点击选择时间"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_order_enddate"
+            app:layout_constraintTop_toBottomOf="@+id/text_order_starthour" />
+
+        <TextView
+            android:id="@+id/text_order_starthour"
+            android:layout_width="120dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:hint="点击选择时间"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_order_startdate"
+            app:layout_constraintTop_toBottomOf="@+id/text_order_boxnumber" />
+
+        <TextView
+            android:id="@+id/text_order_sterilization"
+            android:layout_width="240dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_sterilization"
+            app:layout_constraintTop_toBottomOf="@+id/text_order_temp" />
+
+        <TextView
+            android:id="@+id/text_order_temp"
+            android:layout_width="240dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:hint="点击选择温度"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_temp"
+            app:layout_constraintTop_toBottomOf="@+id/text_order_enddate" />
+
+        <TextView
+            android:id="@+id/text_order_enddate"
+            android:layout_width="120dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:hint="点击选择日期"
+            app:layout_constraintStart_toEndOf="@+id/text_endtime"
+            app:layout_constraintTop_toBottomOf="@+id/text_order_startdate" />
+
+        <TextView
+            android:id="@+id/text_order_startdate"
+            android:layout_width="120dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:hint="点击选择日期"
+            app:layout_constraintStart_toEndOf="@+id/text_starttime"
+            app:layout_constraintTop_toBottomOf="@+id/text_order_boxnumber" />
+
+        <TextView
+            android:id="@+id/text_order_boxnumber"
+            android:layout_width="240dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_boxnumber"
+            app:layout_constraintTop_toBottomOf="@+id/text_order_creator" />
+
+        <TextView
             android:id="@+id/text_sterilization"
             android:layout_width="100dp"
             android:layout_height="55dp"
@@ -91,8 +169,19 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_creator"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_goto_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="提交订单"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
