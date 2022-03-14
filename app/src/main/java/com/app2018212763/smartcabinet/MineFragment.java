@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app2018212763.smartcabinet.Login.LoginActivity;
+import com.app2018212763.smartcabinet.order.OrderShowActivity;
 
 import java.util.Objects;
 
@@ -27,6 +28,7 @@ public class MineFragment extends Fragment {
 
     private Button btn_goto_login;
     private Button btn_logout;
+    private Button btn_goto_showorder;
 
     public MineFragment() {
         // Required empty public constructor
@@ -44,6 +46,7 @@ public class MineFragment extends Fragment {
         showuserid = (TextView) getActivity().findViewById(R.id.showuserid);
         btn_goto_login = (Button) Objects.requireNonNull(getActivity()).findViewById(R.id.btn_goto_login);
         btn_logout = (Button) getActivity().findViewById(R.id.btn_logout);
+        btn_goto_showorder = (Button) getActivity().findViewById(R.id.btn_goto_showorder);
     }
 
     @SuppressLint("SetTextI18n")
@@ -113,6 +116,19 @@ public class MineFragment extends Fragment {
                     dialog.show();//显示对话框
                 }
                 else{
+                    Toast.makeText(getActivity(),"您尚未登录",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btn_goto_showorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checklogin()){
+                    Intent intent = new Intent(getActivity(), OrderShowActivity.class);
+                    startActivity(intent);
+                }
+                else {
                     Toast.makeText(getActivity(),"您尚未登录",Toast.LENGTH_SHORT).show();
                 }
             }

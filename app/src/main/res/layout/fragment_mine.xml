@@ -35,6 +35,14 @@
         android:padding="12dp"/>
 
     <Button
+        android:id="@+id/btn_goto_showorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/showorder"
+        android:layout_marginHorizontal="20dp"
+        android:padding="12dp"/>
+
+    <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

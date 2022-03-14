@@ -9,4 +9,5 @@
     <string name="btn_goto_addorder">新建订单</string>
     <string name="btn_goto_showorder">查看订单</string>
     <string name="btn_goto_delorder">删除订单</string>
+    <string name="showorder">查看订单</string>
 </resources>

@@ -14,9 +14,6 @@
         android:theme="@style/Theme.Smartcabinet"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".order.OrderDelActivity"
-            android:exported="false" />
-        <activity
             android:name=".order.OrderShowActivity"
             android:exported="false" />
         <activity
