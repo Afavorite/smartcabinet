@@ -14,6 +14,85 @@
         android:text="新建您的订单"
         android:textSize="20dp" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/text_sterilization"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="right|center_vertical"
+            android:text="箱柜杀菌"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_temp" />
+
+        <TextView
+            android:id="@+id/text_temp"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="right|center_vertical"
+            android:text="箱柜温度"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_endtime" />
+
+        <TextView
+            android:id="@+id/text_endtime"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="right|center_vertical"
+            android:text="订单终止时间"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_starttime" />
+
+        <TextView
+            android:id="@+id/text_starttime"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="right|center_vertical"
+            android:text="订单起始时间"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_boxnumber" />
+
+        <TextView
+            android:id="@+id/text_creator"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="right|center_vertical"
+            android:text="订单创建者"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_boxnumber"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="right|center_vertical"
+            android:text="订单箱柜号"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_creator" />
+
+        <TextView
+            android:id="@+id/text_order_creator"
+            android:layout_width="240dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@+id/text_creator"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

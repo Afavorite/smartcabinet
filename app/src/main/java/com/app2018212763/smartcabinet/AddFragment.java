@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app2018212763.smartcabinet.order.OrderAddActivity;
@@ -21,17 +22,14 @@ import java.util.Objects;
 
 public class AddFragment extends Fragment {
 
-    //新建组件
-    private Button btn_goto_addorder;
-    private Button btn_goto_showorder;
-    private Button btn_goto_delorder;
+    private TextView text_order_creator;
 
     public AddFragment() {
         // Required empty public constructor
     }
 
     public void bindview(){
-        btn_goto_showorder = (Button) getActivity().findViewById(R.id.btn_goto_showorder);
+        text_order_creator = (TextView) getActivity().findViewById(R.id.text_order_creator);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +43,7 @@ public class AddFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         bindview();
         clicklistener();
+        setOrdercreator();
     }
 
     public boolean checklogin(){
@@ -53,18 +52,10 @@ public class AddFragment extends Fragment {
     }
 
     public void clicklistener(){
-        btn_goto_addorder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checklogin()){
-                    Intent intent = new Intent(getActivity(), OrderAddActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(getActivity(),"您尚未登录",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    }
 
+    public void setOrdercreator(){
+        SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
+        text_order_creator.setText(sp.getString("id",""));
     }
 }
