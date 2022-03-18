@@ -68,25 +68,25 @@ public class AddFragment extends Fragment {
         text_order_startdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog(getActivity(),  0, text_order_startdate, calendar);
+                showDatePickerDialog(getActivity(),  2, text_order_startdate, calendar);
             }
         });
         text_order_starttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimePickerDialog(getActivity(),0, text_order_starttime, calendar);
+                showTimePickerDialog(getActivity(),2, text_order_starttime, calendar);
             }
         });
         text_order_enddate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog(getActivity(),  0, text_order_enddate, calendar);
+                showDatePickerDialog(getActivity(),  2, text_order_enddate, calendar);
             }
         });
         text_order_endtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTimePickerDialog(getActivity(),0, text_order_endtime, calendar);
+                showTimePickerDialog(getActivity(),2, text_order_endtime, calendar);
             }
         });
 
