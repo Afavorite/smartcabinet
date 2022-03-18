@@ -5,6 +5,7 @@ import static com.app2018212763.smartcabinet.Function.Settime.showTimePickerDial
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.DownloadManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.app2018212763.smartcabinet.Order.BoxSelectActivity;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -47,6 +51,7 @@ public class AddFragment extends Fragment {
     //订单数据
     private String temp;
     private String ster;
+    private int RequestCode = 1;
 
     DateFormat format= DateFormat.getDateTimeInstance();
     Calendar calendar= Calendar.getInstance(Locale.CHINA);
@@ -88,6 +93,13 @@ public class AddFragment extends Fragment {
                 showDatePickerDialog(getActivity(),  2, text_order_startdate, calendar);
             }
         });
+        text_order_boxnumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BoxSelectActivity.class);
+                startActivityForResult(intent,RequestCode);
+            }
+        });
         text_order_starttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +121,7 @@ public class AddFragment extends Fragment {
         seekbar_temp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                text_temp.setText("箱柜设置温度:" + progress + "  / 100 ");
+                text_temp.setText("箱柜设置温度" + progress + "  / 100 ");
                 temp = String.valueOf(progress);
             }
 
@@ -146,5 +158,11 @@ public class AddFragment extends Fragment {
         text_order_creator.setText(sp.getString("id",""));
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {//注册成功从注册界面回传信息
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1&&resultCode==2){
+            text_order_boxnumber.setText(data.getStringExtra("box_number"));
+        }
+    }
 }

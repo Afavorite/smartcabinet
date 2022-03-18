@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&resultCode==2){
             id.setText(data.getStringExtra("id"));
-//            password.setText(data.getStringExtra("password"));
         }
     }
 

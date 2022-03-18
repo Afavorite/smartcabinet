@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     dialog.setNegativeButton("取消", new DialogInterface. OnClickListener() {//取消按钮的点击事件
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            tab_menu_home.performClick();
                         }
                     });
                     dialog.show();//显示对话框
