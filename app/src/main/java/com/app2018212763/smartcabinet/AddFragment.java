@@ -87,12 +87,7 @@ public class AddFragment extends Fragment {
     }
 
     public void clicklistener(){
-        text_order_startdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog(getActivity(),  2, text_order_startdate, calendar);
-            }
-        });
+        //选择箱柜号
         text_order_boxnumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,24 +95,38 @@ public class AddFragment extends Fragment {
                 startActivityForResult(intent,RequestCode);
             }
         });
+
+        //选择开始日期
+        text_order_startdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(getActivity(),  2, text_order_startdate, calendar);
+            }
+        });
+
+        //选择开始时间
         text_order_starttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showTimePickerDialog(getActivity(),2, text_order_starttime, calendar);
             }
         });
+        //选择结束日期
         text_order_enddate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog(getActivity(),  2, text_order_enddate, calendar);
             }
         });
+
+        //选择结束时间
         text_order_endtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showTimePickerDialog(getActivity(),2, text_order_endtime, calendar);
             }
         });
+        //选择温度
         seekbar_temp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -135,6 +144,7 @@ public class AddFragment extends Fragment {
 //                Toast.makeText(getActivity(), "当前值"+temp, Toast.LENGTH_SHORT).show();
             }
         });
+        //选择是否打开杀菌功能
         aSwitch_ster.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -158,8 +168,9 @@ public class AddFragment extends Fragment {
         text_order_creator.setText(sp.getString("id",""));
     }
 
+    //箱柜选择后返回数据并显示
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {//注册成功从注册界面回传信息
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&resultCode==2){
             text_order_boxnumber.setText(data.getStringExtra("box_number"));
