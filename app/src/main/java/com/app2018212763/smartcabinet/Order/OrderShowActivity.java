@@ -1,4 +1,4 @@
-package com.app2018212763.smartcabinet.order;
+package com.app2018212763.smartcabinet.Order;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,5 +1,8 @@
 package com.app2018212763.smartcabinet;
 
+import static com.app2018212763.smartcabinet.Function.Settime.showDatePickerDialog;
+import static com.app2018212763.smartcabinet.Function.Settime.showTimePickerDialog;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -14,11 +17,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
-import com.app2018212763.smartcabinet.Login.LoginActivity;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -27,12 +32,21 @@ import java.util.Objects;
 
 public class AddFragment extends Fragment {
 
+
+    //控件
     private TextView text_order_creator;
     private TextView text_order_boxnumber;
     private TextView text_order_startdate;
     private TextView text_order_starttime;
     private TextView text_order_enddate;
     private TextView text_order_endtime;
+    private TextView text_temp;
+    private SeekBar seekbar_temp;
+    private Switch aSwitch_ster;
+
+    //订单数据
+    private String temp;
+    private String ster;
 
     DateFormat format= DateFormat.getDateTimeInstance();
     Calendar calendar= Calendar.getInstance(Locale.CHINA);
@@ -48,6 +62,9 @@ public class AddFragment extends Fragment {
         text_order_starttime = (TextView) getActivity().findViewById(R.id.text_order_starthour);
         text_order_enddate = (TextView) getActivity().findViewById(R.id.text_order_enddate);
         text_order_endtime = (TextView) getActivity().findViewById(R.id.text_order_endhour);
+        text_temp = (TextView) getActivity().findViewById(R.id.text_temp);
+        seekbar_temp = (SeekBar) getActivity().findViewById(R.id.seekBar_temp);
+        aSwitch_ster = (Switch) getActivity().findViewById(R.id.switch_sterilization);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,61 +106,44 @@ public class AddFragment extends Fragment {
                 showTimePickerDialog(getActivity(),2, text_order_endtime, calendar);
             }
         });
+        seekbar_temp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                text_temp.setText("箱柜设置温度:" + progress + "  / 100 ");
+                temp = String.valueOf(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+//                Toast.makeText(getActivity(), "当前值"+temp, Toast.LENGTH_SHORT).show();
+            }
+        });
+        aSwitch_ster.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+//                    Toast.makeText(getActivity(),"开启",Toast.LENGTH_SHORT).show();
+                    ster = "on";
+                }
+                else {
+//                    Toast.makeText(getActivity(),"关闭",Toast.LENGTH_SHORT).show();
+                    ster = "off";
+                }
+
+            }
+        });
 
     }
 
+    //显示订单创建者
     public void setOrdercreator(){
         SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
         text_order_creator.setText(sp.getString("id",""));
-    }
-
-    /**
-     * 日期选择
-     * @param activity
-     * @param themeResId
-     * @param tv
-     * @param calendar
-     */
-    public static void showDatePickerDialog(Activity activity, int themeResId, final TextView tv, Calendar calendar) {
-        // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
-        new DatePickerDialog(activity, themeResId, new DatePickerDialog.OnDateSetListener() {
-            // 绑定监听器(How the parent is notified that the date is set.)
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // 此处得到选择的时间，可以进行你想要的操作
-                tv.setText(year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日");
-            }
-        }
-                // 设置初始日期
-                , calendar.get(Calendar.YEAR)
-                , calendar.get(Calendar.MONTH)
-                , calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
-
-    /**
-     * 时间选择
-     * @param activity
-     * @param themeResId
-     * @param tv
-     * @param calendar
-     */
-    public static void showTimePickerDialog(Activity activity,int themeResId, final TextView tv, Calendar calendar) {
-        // Calendar c = Calendar.getInstance();
-        // 创建一个TimePickerDialog实例，并把它显示出来
-        // 解释一哈，Activity是context的子类
-        new TimePickerDialog( activity,themeResId,
-                // 绑定监听器
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tv.setText(hourOfDay + "时" + minute  + "分");
-                    }
-                }
-                // 设置初始时间
-                , calendar.get(Calendar.HOUR_OF_DAY)
-                , calendar.get(Calendar.MINUTE)
-                // true表示采用24小时制
-                ,true).show();
     }
 
 
