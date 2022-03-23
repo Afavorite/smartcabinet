@@ -32,6 +32,7 @@ import java.util.List;
 public class BoxSelectActivity extends AppCompatActivity {
 
     private Button btn_box_confirm;
+    private Button btn_box_refresh;
     private ListView lv_box_info;
     private int ResultCode = 2;
     private final static int GETBOXINFO = 3;
@@ -39,6 +40,7 @@ public class BoxSelectActivity extends AppCompatActivity {
 
     void Bindview(){
         btn_box_confirm = (Button) findViewById(R.id.btn_box_confirm);
+        btn_box_refresh = (Button) findViewById(R.id.btn_box_refresh);
         lv_box_info = (ListView) findViewById(R.id.lv_box_info);
     }
 
@@ -48,7 +50,7 @@ public class BoxSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_box_select);
         Bindview();
 
-//        onclicklistener();
+        onclicklistener();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -64,17 +66,35 @@ public class BoxSelectActivity extends AppCompatActivity {
         }).start();
     }
 
-//    void onclicklistener(){
-//        btn_confirm.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+    void onclicklistener(){
+        btn_box_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                Intent intent = new Intent();
 //                intent.putExtra("box_number",editText.getText().toString());
 //                setResult(ResultCode,intent);//向上一级发送数据
 //                finish();
-//            }
-//        });
-//    }
+            }
+        });
+        btn_box_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
+                        String result = HttpOrder.GetBoxInfo("getboxinfo");
+                        Bundle bundle = new Bundle();
+                        bundle.putString("result",result);
+                        Message message = new Message();
+                        message.setData(bundle);
+                        message.what = GETBOXINFO;
+                        handler.sendMessage(message);
+                    }
+                }).start();
+            }
+        });
+    }
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler(){
