@@ -16,11 +16,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app2018212763.smartcabinet.Bean.Box;
 import com.app2018212763.smartcabinet.Login.LoginActivity;
 import com.app2018212763.smartcabinet.MainActivity;
 import com.app2018212763.smartcabinet.Order.HttpOrder;
 import com.app2018212763.smartcabinet.R;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoxSelectActivity extends AppCompatActivity {
@@ -82,7 +87,8 @@ public class BoxSelectActivity extends AppCompatActivity {
                     try {
                         if (!result.equals("")){
 //                            tv_box_information.setText(result);
-                            Toast.makeText(BoxSelectActivity.this,"收到数据",Toast.LENGTH_SHORT).show();
+                            parseBoxJson(result);
+//                            Toast.makeText(BoxSelectActivity.this,"dwdw",Toast.LENGTH_SHORT).show();
                         }
                     }catch (NullPointerException e){
                         e.printStackTrace();
@@ -92,4 +98,19 @@ public class BoxSelectActivity extends AppCompatActivity {
             }
         }
     };
+
+    //解析box的json数据
+    private void parseBoxJson(String json){
+        ArrayList<Box> boxs = new ArrayList<Box>();
+        try{
+            JSONArray jsonArray = new JSONArray(json);
+            for(int i = 0;i < jsonArray.length();i++){
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                Box box = new Box();
+                box.setBox_number(jsonObject.getString("box_number"));
+                boxs.add(box);
+            }
+            Toast.makeText(BoxSelectActivity.this,boxs.toString(),Toast.LENGTH_SHORT).show();
+        }catch (Exception e){e.printStackTrace();}
+    }
 }
