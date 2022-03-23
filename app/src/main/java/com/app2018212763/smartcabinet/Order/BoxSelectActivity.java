@@ -41,19 +41,19 @@ public class BoxSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_box_select);
 //        Bindview();
 //        onclicklistener();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
-//                String result = HttpOrder.GetBoxInfo("getboxinfo");
-//                Bundle bundle = new Bundle();
-//                bundle.putString("result",result);
-//                Message message = new Message();
-//                message.setData(bundle);
-//                message.what = GETBOXINFO;
-//                handler.sendMessage(message);
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
+                String result = HttpOrder.GetBoxInfo("getboxinfo");
+                Bundle bundle = new Bundle();
+                bundle.putString("result",result);
+                Message message = new Message();
+                message.setData(bundle);
+                message.what = GETBOXINFO;
+                handler.sendMessage(message);
+            }
+        }).start();
     }
 
 //    void onclicklistener(){
@@ -68,44 +68,28 @@ public class BoxSelectActivity extends AppCompatActivity {
 //        });
 //    }
 
-//    void getboxinfo(){
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
-//                String result = HttpOrder.GetBoxInfo();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("result",result);
-//                Message message = new Message();
-//                message.setData(bundle);
-//                message.what = GETBOXINFO;
-//                handler.sendMessage(message);
-//            }
-//        }).start();
-//    }
-
-//    @SuppressLint("HandlerLeak")
-//    Handler handler = new Handler(){
-//        @Override
-//        public void handleMessage(Message msg){
-//            super.handleMessage(msg);
-//            switch (msg.what){
-//                case GETBOXINFO:{
-//                    Bundle bundle = new Bundle();
-//                    bundle = msg.getData();
-//                    String result = bundle.getString("result");
-//                    //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
-//                    try {
-//                        if (!result.equals("")){
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            super.handleMessage(msg);
+            switch (msg.what){
+                case GETBOXINFO:{
+                    Bundle bundle = new Bundle();
+                    bundle = msg.getData();
+                    String result = bundle.getString("result");
+                    //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
+                    try {
+                        if (!result.equals("")){
 //                            tv_box_information.setText(result);
-//                            Toast.makeText(BoxSelectActivity.this,"收到数据",Toast.LENGTH_SHORT).show();
-//                        }
-//                    }catch (NullPointerException e){
-//                        e.printStackTrace();
-//                    }
-//                }
-//                break;
-//            }
-//        }
-//    };
+                            Toast.makeText(BoxSelectActivity.this,"收到数据",Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            }
+        }
+    };
 }
