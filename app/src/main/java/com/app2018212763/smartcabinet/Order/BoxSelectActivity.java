@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -57,19 +58,6 @@ public class BoxSelectActivity extends AppCompatActivity {
 
         onclicklistener();
         NewThread(INITBOXINFO);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
-//                String result = HttpOrder.GetBoxInfo("getboxinfo");
-//                Bundle bundle = new Bundle();
-//                bundle.putString("result",result);
-//                Message message = new Message();
-//                message.setData(bundle);
-//                message.what = GETBOXINFO;
-//                handler.sendMessage(message);
-//            }
-//        }).start();
     }
 
     void onclicklistener(){
@@ -121,6 +109,7 @@ public class BoxSelectActivity extends AppCompatActivity {
                     try {
                         if (!result.equals("")){
                             parseBoxJson(result);
+                            lv_box_info.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
                             lv_box_info.setAdapter(boxAdapter);
                         }
                     }catch (NullPointerException e){

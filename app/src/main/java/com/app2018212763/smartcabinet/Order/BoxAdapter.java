@@ -41,9 +41,9 @@ public class BoxAdapter extends BaseAdapter {
     @SuppressLint({"ViewHolder", "SetTextI18n"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(android.R.layout.simple_list_item_1,parent,false);
+        convertView = LayoutInflater.from(mContext).inflate(android.R.layout.simple_list_item_single_choice,parent,false);
         TextView txt_box_number = (TextView) convertView.findViewById(android.R.id.text1);
-        txt_box_number.setText(mData.get(position).getBox_number()+"空闲中");
+        txt_box_number.setText(mData.get(position).getBox_number());
         return convertView;
     }
 }
