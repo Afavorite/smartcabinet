@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BoxSelectActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ public class BoxSelectActivity extends AppCompatActivity {
     private ListView lv_box_info;
     private int ResultCode = 2;
     private final static int GETBOXINFO = 3;
+    private BoxAdapter boxAdapter = null;
 
     void Bindview(){
         btn_box_confirm = (Button) findViewById(R.id.btn_box_confirm);
@@ -44,7 +46,8 @@ public class BoxSelectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box_select);
-//        Bindview();
+        Bindview();
+
 //        onclicklistener();
         new Thread(new Runnable() {
             @Override
@@ -101,7 +104,7 @@ public class BoxSelectActivity extends AppCompatActivity {
 
     //解析box的json数据
     private void parseBoxJson(String json){
-        ArrayList<Box> boxs = new ArrayList<Box>();
+        LinkedList<Box> boxs = new LinkedList<>();
         try{
             JSONArray jsonArray = new JSONArray(json);
             for(int i = 0;i < jsonArray.length();i++){
@@ -110,7 +113,9 @@ public class BoxSelectActivity extends AppCompatActivity {
                 box.setBox_number(jsonObject.getString("box_number"));
                 boxs.add(box);
             }
-            Toast.makeText(BoxSelectActivity.this,boxs.toString(),Toast.LENGTH_SHORT).show();
+            boxAdapter = new BoxAdapter(boxs,BoxSelectActivity.this);
+            lv_box_info.setAdapter(boxAdapter);
+//            Toast.makeText(BoxSelectActivity.this,boxs.toString(),Toast.LENGTH_SHORT).show();
         }catch (Exception e){e.printStackTrace();}
     }
 }
