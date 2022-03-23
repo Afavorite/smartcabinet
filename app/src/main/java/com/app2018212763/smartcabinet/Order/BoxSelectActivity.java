@@ -1,6 +1,7 @@
 package com.app2018212763.smartcabinet.Order;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -35,8 +36,12 @@ public class BoxSelectActivity extends AppCompatActivity {
     private Button btn_box_refresh;
     private ListView lv_box_info;
     private int ResultCode = 2;
-    private final static int GETBOXINFO = 3;
-    private BoxAdapter boxAdapter = null;
+    private final static int INITBOXINFO = 3;
+    private final static int UPDATEBOXINFO = 4;
+
+
+    LinkedList<Box> boxs = new LinkedList<>();
+    BoxAdapter boxAdapter = new BoxAdapter(boxs,BoxSelectActivity.this);
 
     void Bindview(){
         btn_box_confirm = (Button) findViewById(R.id.btn_box_confirm);
@@ -51,19 +56,20 @@ public class BoxSelectActivity extends AppCompatActivity {
         Bindview();
 
         onclicklistener();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
-                String result = HttpOrder.GetBoxInfo("getboxinfo");
-                Bundle bundle = new Bundle();
-                bundle.putString("result",result);
-                Message message = new Message();
-                message.setData(bundle);
-                message.what = GETBOXINFO;
-                handler.sendMessage(message);
-            }
-        }).start();
+        NewThread(INITBOXINFO);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
+//                String result = HttpOrder.GetBoxInfo("getboxinfo");
+//                Bundle bundle = new Bundle();
+//                bundle.putString("result",result);
+//                Message message = new Message();
+//                message.setData(bundle);
+//                message.what = GETBOXINFO;
+//                handler.sendMessage(message);
+//            }
+//        }).start();
     }
 
     void onclicklistener(){
@@ -79,21 +85,25 @@ public class BoxSelectActivity extends AppCompatActivity {
         btn_box_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
-                        String result = HttpOrder.GetBoxInfo("getboxinfo");
-                        Bundle bundle = new Bundle();
-                        bundle.putString("result",result);
-                        Message message = new Message();
-                        message.setData(bundle);
-                        message.what = GETBOXINFO;
-                        handler.sendMessage(message);
-                    }
-                }).start();
+                NewThread(UPDATEBOXINFO);
             }
         });
+    }
+
+    void NewThread(int msg){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
+                String result = HttpOrder.GetBoxInfo("getboxinfo");
+                Bundle bundle = new Bundle();
+                bundle.putString("result",result);
+                Message message = new Message();
+                message.setData(bundle);
+                message.what = msg;
+                handler.sendMessage(message);
+            }
+        }).start();
     }
 
     @SuppressLint("HandlerLeak")
@@ -102,16 +112,32 @@ public class BoxSelectActivity extends AppCompatActivity {
         public void handleMessage(Message msg){
             super.handleMessage(msg);
             switch (msg.what){
-                case GETBOXINFO:{
+                //初始化listview显示
+                case INITBOXINFO:{
                     Bundle bundle = new Bundle();
                     bundle = msg.getData();
                     String result = bundle.getString("result");
                     //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
                     try {
                         if (!result.equals("")){
-//                            tv_box_information.setText(result);
                             parseBoxJson(result);
-//                            Toast.makeText(BoxSelectActivity.this,"dwdw",Toast.LENGTH_SHORT).show();
+                            lv_box_info.setAdapter(boxAdapter);
+                        }
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+                }
+                //重新获取json更新列表
+                case UPDATEBOXINFO:{
+                    Bundle bundle = new Bundle();
+                    bundle = msg.getData();
+                    String result = bundle.getString("result");
+                    //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
+                    try {
+                        if (!result.equals("")){
+                            boxs.clear();
+                            parseBoxJson(result);
+                            boxAdapter.notifyDataSetChanged();
                         }
                     }catch (NullPointerException e){
                         e.printStackTrace();
@@ -124,7 +150,6 @@ public class BoxSelectActivity extends AppCompatActivity {
 
     //解析box的json数据
     private void parseBoxJson(String json){
-        LinkedList<Box> boxs = new LinkedList<>();
         try{
             JSONArray jsonArray = new JSONArray(json);
             for(int i = 0;i < jsonArray.length();i++){
@@ -133,9 +158,6 @@ public class BoxSelectActivity extends AppCompatActivity {
                 box.setBox_number(jsonObject.getString("box_number"));
                 boxs.add(box);
             }
-            boxAdapter = new BoxAdapter(boxs,BoxSelectActivity.this);
-            lv_box_info.setAdapter(boxAdapter);
-//            Toast.makeText(BoxSelectActivity.this,boxs.toString(),Toast.LENGTH_SHORT).show();
         }catch (Exception e){e.printStackTrace();}
     }
 }
