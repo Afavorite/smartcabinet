@@ -14,9 +14,9 @@ public class Settime {
     /**
      * 日期选择
      * @param activity
-     * @param themeResId
-     * @param tv
-     * @param calendar
+     * @param themeResId 主题
+     * @param tv 对应textview
+     * @param calendar 日期选择器
      */
     public static void showDatePickerDialog(Activity activity, int themeResId, final TextView tv, Calendar calendar) {
         // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
@@ -25,7 +25,7 @@ public class Settime {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 // 此处得到选择的时间，可以进行你想要的操作
-                tv.setText(year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日");
+                tv.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
             }
         }
                 // 设置初始日期
@@ -50,7 +50,7 @@ public class Settime {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tv.setText(hourOfDay + "时" + minute  + "分");
+                        tv.setText(hourOfDay + ":" + minute + ":00");
                     }
                 }
                 // 设置初始时间
