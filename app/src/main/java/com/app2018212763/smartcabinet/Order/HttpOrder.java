@@ -1,5 +1,7 @@
 package com.app2018212763.smartcabinet.Order;
 
+import com.app2018212763.smartcabinet.Bean.Order;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +66,10 @@ public class HttpOrder {
         }catch (IOException e){
             e.printStackTrace();
         }
-
         return result;
+    }
+
+    public static String OrderAdd (Order order){
+        return "";
     }
 }
