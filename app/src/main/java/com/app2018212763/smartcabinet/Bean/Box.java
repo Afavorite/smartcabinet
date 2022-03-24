@@ -1,7 +1,7 @@
 package com.app2018212763.smartcabinet.Bean;
 
 public class Box {
-    private String box_number;
+    public String box_number;
 
     public String getBox_number() {
         return box_number;

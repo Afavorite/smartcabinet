@@ -12,6 +12,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -64,10 +65,10 @@ public class BoxSelectActivity extends AppCompatActivity {
         btn_box_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.putExtra("box_number",editText.getText().toString());
-//                setResult(ResultCode,intent);//向上一级发送数据
-//                finish();
+                Intent intent = new Intent();
+                intent.putExtra("box_number",boxs.get(lv_box_info.getCheckedItemPosition()).box_number);
+                setResult(ResultCode,intent);//向上一级发送箱柜选择结果数据
+                finish();
             }
         });
         btn_box_refresh.setOnClickListener(new View.OnClickListener() {
