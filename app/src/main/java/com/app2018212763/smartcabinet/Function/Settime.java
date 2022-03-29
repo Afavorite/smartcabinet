@@ -28,7 +28,10 @@ public class Settime {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 // 此处得到选择的时间，可以进行你想要的操作
-                tv.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                String flag1 = "",flag2 = "";
+                if (monthOfYear < 10){ flag1 = "0";}
+                if (dayOfMonth < 10){ flag2 = "0";}
+                tv.setText(year + "-" + flag1 + (monthOfYear + 1) + "-" + flag2 + dayOfMonth);
             }
         }
                 // 设置初始日期
@@ -53,7 +56,10 @@ public class Settime {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tv.setText(hourOfDay + ":" + minute + ":00");
+                        String flag1 = "",flag2 = "";
+                        if (hourOfDay < 10){ flag1 = "0";}
+                        if (minute < 10){ flag2 = "0";}
+                        tv.setText(flag1 + hourOfDay + ":" + flag2 + minute + ":00");
                     }
                 }
                 // 设置初始时间

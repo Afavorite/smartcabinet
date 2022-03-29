@@ -6,10 +6,12 @@ import static com.app2018212763.smartcabinet.Function.Settime.showTimePickerDial
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DownloadManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,8 +33,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.app2018212763.smartcabinet.Bean.Order;
 import com.app2018212763.smartcabinet.Order.BoxSelectActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -97,6 +103,21 @@ public class AddFragment extends Fragment {
         bindview();
         clicklistener();
         setOrdercreator();
+    }
+
+    //显示订单创建者
+    public void setOrdercreator(){
+        SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
+        text_order_creator.setText(sp.getString("id",""));
+    }
+
+    //箱柜选择后返回数据并显示
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1&&resultCode==2){
+            text_order_boxnumber.setText(data.getStringExtra("box_number"));
+        }
     }
 
     public void clicklistener(){
@@ -189,7 +210,33 @@ public class AddFragment extends Fragment {
                     //检查时间关系是否正确
                     if (comparetime(starttime,endtime)){
                         //实例一个Order，写入信息
-                        Order neworder = new Order();
+                        Order order = new Order();
+                        order.setOrder_creator(sp.getString("id",""));
+                        order.setOrder_box_number(text_order_boxnumber.getText().toString());
+                        order.setOrder_use_start_time(starttime);
+                        order.setOrder_use_end_time(endtime);
+                        order.setOrder_temp(temp);
+                        order.setOrder_sterilization(ster);
+
+                        String jsonOutput= JSON.toJSONString(order);
+                        Toast.makeText(getActivity(),jsonOutput,Toast.LENGTH_SHORT).show();
+
+//                        AlertDialog.Builder dialog = new AlertDialog.Builder (getActivity());//通过AlertDialog.Builder创建出一个AlertDialog的实例
+//                        dialog.setTitle("请确认！");//设置对话框的标题
+//                        dialog.setMessage("确认提交？");//设置对话框的内容
+//                        dialog.setCancelable(false);//设置对话框是否可以取消
+//                        dialog.setPositiveButton("确认", new DialogInterface. OnClickListener() {//确定按钮的点击事件
+//                            @Override
+//                            //点击确定，清空信息
+//                            public void onClick(DialogInterface dialog, int which) {
+//                            }
+//                        });
+//                        dialog.setNegativeButton("取消", new DialogInterface. OnClickListener() {//取消按钮的点击事件
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                            }
+//                        });
+//                        dialog.show();//显示对话框
                     }
                     else {
                         Toast.makeText(getActivity(),"时间有误",Toast.LENGTH_SHORT).show();
@@ -200,20 +247,5 @@ public class AddFragment extends Fragment {
                 }
             }
         });
-    }
-
-    //显示订单创建者
-    public void setOrdercreator(){
-        SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
-        text_order_creator.setText(sp.getString("id",""));
-    }
-
-    //箱柜选择后返回数据并显示
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1&&resultCode==2){
-            text_order_boxnumber.setText(data.getStringExtra("box_number"));
-        }
     }
 }

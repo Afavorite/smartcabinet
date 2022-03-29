@@ -1,5 +1,6 @@
 package com.app2018212763.smartcabinet.Order;
 
+import com.alibaba.fastjson.JSON;
 import com.app2018212763.smartcabinet.Bean.Order;
 
 import java.io.ByteArrayOutputStream;
@@ -70,6 +71,7 @@ public class HttpOrder {
     }
 
     public static String OrderAdd (Order order){
+        String jsonOutput= JSON.toJSONString(order);
         return "";
     }
 }
