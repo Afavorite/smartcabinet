@@ -7,7 +7,10 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Settime {
 
@@ -58,5 +61,20 @@ public class Settime {
                 , calendar.get(Calendar.MINUTE)
                 // true表示采用24小时制
                 ,true).show();
+    }
+
+    public static boolean comparetime(String starttime, String endtime){
+        SimpleDateFormat cTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        boolean flag = false;
+        try {
+            Date stime = cTime.parse(starttime);
+            Date etime = cTime.parse(endtime);
+            if (etime.getTime() > stime.getTime()){
+                flag = true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 }
