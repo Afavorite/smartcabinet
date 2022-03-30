@@ -71,7 +71,7 @@ public class HttpOrder {
     }
 
     public static String OrderAdd (Order order){
-        String jsonOutput= JSON.toJSONString(order);
-        return "";
+        String jsonOutput = JSON.toJSONString(order);
+        return "success";
     }
 }

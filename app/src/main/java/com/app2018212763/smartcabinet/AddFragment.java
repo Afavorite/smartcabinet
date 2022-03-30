@@ -19,6 +19,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -35,7 +37,10 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.app2018212763.smartcabinet.Bean.Order;
+import com.app2018212763.smartcabinet.Login.HttpLogin;
+import com.app2018212763.smartcabinet.Login.LoginActivity;
 import com.app2018212763.smartcabinet.Order.BoxSelectActivity;
+import com.app2018212763.smartcabinet.Order.HttpOrder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -65,6 +70,7 @@ public class AddFragment extends Fragment {
 
     private Button btn_goto_submit;
 
+    private final static int ORDERADD_JUDGE = 1;
     //订单数据
     private String temp;
     private String ster = "off";
@@ -218,25 +224,35 @@ public class AddFragment extends Fragment {
                         order.setOrder_temp(temp);
                         order.setOrder_sterilization(ster);
 
-                        String jsonOutput= JSON.toJSONString(order);
-                        Toast.makeText(getActivity(),jsonOutput,Toast.LENGTH_SHORT).show();
-
-//                        AlertDialog.Builder dialog = new AlertDialog.Builder (getActivity());//通过AlertDialog.Builder创建出一个AlertDialog的实例
-//                        dialog.setTitle("请确认！");//设置对话框的标题
-//                        dialog.setMessage("确认提交？");//设置对话框的内容
-//                        dialog.setCancelable(false);//设置对话框是否可以取消
-//                        dialog.setPositiveButton("确认", new DialogInterface. OnClickListener() {//确定按钮的点击事件
-//                            @Override
-//                            //点击确定，清空信息
-//                            public void onClick(DialogInterface dialog, int which) {
-//                            }
-//                        });
-//                        dialog.setNegativeButton("取消", new DialogInterface. OnClickListener() {//取消按钮的点击事件
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                            }
-//                        });
-//                        dialog.show();//显示对话框
+                        AlertDialog.Builder dialog = new AlertDialog.Builder (getActivity());//通过AlertDialog.Builder创建出一个AlertDialog的实例
+                        dialog.setTitle("请确认！");//设置对话框的标题
+                        dialog.setMessage("确认提交？");//设置对话框的内容
+                        dialog.setCancelable(false);//设置对话框是否可以取消
+                        dialog.setPositiveButton("确认", new DialogInterface. OnClickListener() {//确定按钮的点击事件
+                            @Override
+                            //点击确定，清空信息
+                            public void onClick(DialogInterface dialog, int which) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
+                                        String result = HttpOrder.OrderAdd(order);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("result",result);
+                                        Message message = new Message();
+                                        message.setData(bundle);
+                                        message.what = ORDERADD_JUDGE;
+                                        handler.sendMessage(message);
+                                    }
+                                }).start();
+                            }
+                        });
+                        dialog.setNegativeButton("取消", new DialogInterface. OnClickListener() {//取消按钮的点击事件
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        dialog.show();//显示对话框
                     }
                     else {
                         Toast.makeText(getActivity(),"时间有误",Toast.LENGTH_SHORT).show();
@@ -248,4 +264,34 @@ public class AddFragment extends Fragment {
             }
         });
     }
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            super.handleMessage(msg);
+            switch (msg.what){
+                case ORDERADD_JUDGE:{
+                    Bundle bundle = new Bundle();
+                    bundle = msg.getData();
+                    String result = bundle.getString("result");
+                    //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
+                    try {
+                        if (result.equals("success")) {
+                            Toast.makeText(getActivity(),"提交成功！",Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                        if (result.equals("fail")){
+                            Toast.makeText(getActivity(),"提交失败！",Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            }
+        }
+    };
 }

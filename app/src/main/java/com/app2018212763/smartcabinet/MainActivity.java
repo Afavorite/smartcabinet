@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MineFragment fg3;
     private FragmentManager fManager;
 
+    public static MainActivity mainActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fManager = getSupportFragmentManager();
         bindViews();
         tab_menu_home.performClick();   //模拟一次点击，既进去后选择第一项
+        mainActivity = this;
     }
 
     //UI组件初始化与事件绑定
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tab_menu_home.setSelected(true);
                 if(fg1 == null){
                     fg1 = new HomeFragment();
-                    fTransaction.add(R.id.ly_content,fg1);
+                    fTransaction.add(R.id.ly_content,fg1,"a");
                 }else{
                     fTransaction.show(fg1);
                 }
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     tab_menu_add.setSelected(true);
                     if(fg2 == null){
                         fg2 = new AddFragment();
-                        fTransaction.add(R.id.ly_content,fg2);
+                        fTransaction.add(R.id.ly_content,fg2,"b");
                     }else{
                         fTransaction.show(fg2);
                     }

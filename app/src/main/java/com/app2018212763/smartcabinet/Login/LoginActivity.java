@@ -64,6 +64,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
                             sp.edit().putString("id",id.getText().toString()).commit();
 
+                            finish();
+                            MainActivity.mainActivity.finish();//销毁旧的activity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
