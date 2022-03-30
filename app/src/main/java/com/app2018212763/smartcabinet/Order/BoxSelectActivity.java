@@ -28,6 +28,7 @@ import com.app2018212763.smartcabinet.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class BoxSelectActivity extends AppCompatActivity {
     private int ResultCode = 2;
     private final static int INITBOXINFO = 3;
     private final static int UPDATEBOXINFO = 4;
+    private String choose = "";
 
 
     LinkedList<Box> boxs = new LinkedList<>();
@@ -65,16 +67,27 @@ public class BoxSelectActivity extends AppCompatActivity {
         btn_box_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("box_number",boxs.get(lv_box_info.getCheckedItemPosition()).box_number);
-                setResult(ResultCode,intent);//向上一级发送箱柜选择结果数据
-                finish();
+                if (!boxs.isEmpty() && !choose.equals("")){
+                    Intent intent = new Intent();
+                    intent.putExtra("box_number",choose);
+                    setResult(ResultCode,intent);//向上一级发送箱柜选择结果数据
+                    finish();
+                }
+                else{
+                    Toast.makeText(BoxSelectActivity.this, "您尚未选择", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btn_box_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NewThread(UPDATEBOXINFO);
+            }
+        });
+        lv_box_info.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                choose = boxs.get(lv_box_info.getCheckedItemPosition()).box_number;
             }
         });
     }
