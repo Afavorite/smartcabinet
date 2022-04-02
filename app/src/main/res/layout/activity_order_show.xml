@@ -1,20 +1,64 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    tools:context=".Order.OrderShowActivity">
 
-    <LinearLayout
-        android:id="@+id/ll"
+    <RelativeLayout
+        android:id="@+id/ly_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".Order.OrderShowActivity" >
+        android:layout_height="48dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="hihi"/>
-    </LinearLayout>
+            android:id="@+id/txt_topbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="订单"
+            android:textSize="18sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/div_gray" />
 
-</ScrollView>
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_tab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/ly_top_bar"
+        android:layout_marginTop="0dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_booking"
+            style="@style/tab_order_item"
+            android:text="预约中" />
+        <RadioButton
+            android:id="@+id/rb_using"
+            style="@style/tab_order_item"
+            android:text="进行中" />
+        <RadioButton
+            android:id="@+id/rb_finish"
+            style="@style/tab_order_item"
+            android:text="已完成" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/div_tab_vp"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignBottom="@+id/rg_tab_bar"
+        android:layout_marginBottom="0dp"
+        android:background="@color/div_gray" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/div_tab_vp" />
+</RelativeLayout>

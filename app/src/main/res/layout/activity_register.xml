@@ -12,10 +12,11 @@
         android:layout_marginLeft="97dp"
         android:id="@+id/reg_name"
         android:text="新建账号:"
+        android:textSize="24sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="97dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="114dp" />
 
     <EditText
@@ -30,21 +31,22 @@
         android:background="@null"
         android:hint="输入学号"
         android:inputType="number"
-        android:textSize="13sp" />
+        android:textSize="24sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="97dp"
+        android:layout_marginLeft="60dp"
         android:id="@+id/reg_password"
         android:layout_below="@+id/reg_name"
         android:text="新建密码:"
+        android:textSize="24sp"
         android:layout_marginTop="14dp" />
     <EditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/reg_stu_password"
         android:layout_below="@+id/reg_stu_id"
-        android:textSize="13sp"
+        android:textSize="24sp"
         android:hint="输入密码"
         android:inputType="textPassword"
         android:maxLength="20"
@@ -57,17 +59,18 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="97dp"
+        android:layout_marginLeft="60dp"
         android:id="@+id/reg_confirm_password"
         android:layout_below="@+id/reg_password"
         android:text="确认密码:"
+        android:textSize="24sp"
         android:layout_marginTop="14dp" />
     <EditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/reg_stu_confirm_password"
         android:layout_below="@+id/reg_stu_password"
-        android:textSize="13sp"
+        android:textSize="24sp"
         android:hint="再次输入密码"
         android:inputType="textPassword"
         android:maxLength="20"
