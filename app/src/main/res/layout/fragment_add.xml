@@ -12,11 +12,23 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="新建您的订单"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <Switch
+            android:id="@+id/switch_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/text_order_enddate" />
 
         <TextView
             android:id="@+id/text_order_endhour"
@@ -94,7 +106,7 @@
             android:gravity="right|center_vertical"
             android:text="箱柜设置温度"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_endtime" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/text_endtime"
@@ -169,6 +181,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="48dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toEndOf="@+id/text_sterilization"
             app:layout_constraintTop_toBottomOf="@+id/seekBar_temp" />
 
@@ -179,8 +192,20 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.313"
             app:layout_constraintStart_toEndOf="@+id/text_temp"
-            app:layout_constraintTop_toBottomOf="@+id/text_order_enddate" />
+            app:layout_constraintTop_toBottomOf="@+id/switch_temp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="100dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:gravity="right|center_vertical"
+            android:text="恒温控制"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_endtime" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

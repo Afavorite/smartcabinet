@@ -11,6 +11,7 @@ public class Order {
     private String order_use_end_time;
     private String order_temp;
     private String order_sterilization;
+    private String order_temp_switch;
 
     public String getOrder_number() {
         return order_number;
@@ -45,4 +46,11 @@ public class Order {
 
     public String getOrder_sterilization() { return order_sterilization; }
     public void setOrder_sterilization(String order_sterilization) { this.order_sterilization = order_sterilization; }
+
+    public String getOrder_temp_switch() {
+        return order_temp_switch;
+    }
+    public void setOrder_temp_switch(String order_temp_switch) {
+        this.order_temp_switch = order_temp_switch;
+    }
 }

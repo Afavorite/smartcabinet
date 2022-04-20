@@ -1,16 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    android:orientation="vertical"
+    tools:context=".HomeFragment" >
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/txt_home"
+        android:id="@+id/tv_hometitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:gravity="center"
-        android:text="主页fragment" />
+        android:text="欢迎使用智慧储物APP"
+        android:textSize="20sp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_myorder"
+            android:layout_width="160dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="24dp"
+            android:background="#00FFFFFF"
+            android:drawableTop="@drawable/ic_myorder"
+            android:text="查看订单"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_qrcode_scanner"
+            android:layout_width="160dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="56dp"
+            android:background="#00FFFFFF"
+            android:drawableTop="@drawable/ic_qr_code_scanner"
+            android:text="扫码开锁"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

@@ -12,11 +12,13 @@
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_add_selected.xml" value="0.1535" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1535" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_baseline_home_24_selected.xml" value="0.1535" />
+        <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_baseline_qr_code_scanner_24.xml" value="0.1345" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_home.xml" value="0.1535" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_home_selected.xml" value="0.1535" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1565" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_mine.xml" value="0.1535" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_mine_selected.xml" value="0.1535" />
+        <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/ic_myorder.xml" value="0.1" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/origin_add.xml" value="0.122" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/origin_home.xml" value="0.122" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/drawable/origin_mine.xml" value="0.122" />
@@ -38,7 +40,7 @@
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/layout/activity_show_order.xml" value="0.18645833333333334" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/layout/fragment_add.xml" value="0.3333333333333333" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/layout/fragment_content.xml" value="0.1" />
-        <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/layout/fragment_mine.xml" value="0.136" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1475" />
         <entry key="..\:/astudy/biyesheji/app/smartcabinet/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1475" />

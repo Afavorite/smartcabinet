@@ -28,7 +28,7 @@ public class MineFragment extends Fragment {
 
     private Button btn_goto_login;
     private Button btn_logout;
-    private Button btn_goto_showorder;
+//    private Button btn_goto_showorder;
 
     public MineFragment() {
         // Required empty public constructor
@@ -46,7 +46,7 @@ public class MineFragment extends Fragment {
         showuserid = (TextView) getActivity().findViewById(R.id.showuserid);
         btn_goto_login = (Button) Objects.requireNonNull(getActivity()).findViewById(R.id.btn_goto_login);
         btn_logout = (Button) getActivity().findViewById(R.id.btn_logout);
-        btn_goto_showorder = (Button) getActivity().findViewById(R.id.btn_goto_showorder);
+//        btn_goto_showorder = (Button) getActivity().findViewById(R.id.btn_goto_showorder);
     }
 
     @SuppressLint("SetTextI18n")
@@ -104,7 +104,7 @@ public class MineFragment extends Fragment {
                         //点击确定，清空信息
                         public void onClick(DialogInterface dialog, int which) {
                             SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
-                            sp.edit().putString("id","").commit();
+                            sp.edit().putString("id","").apply();
                             showuserid.setText("您尚未登录");
                         }
                     });
@@ -120,19 +120,19 @@ public class MineFragment extends Fragment {
                 }
             }
         });
-
-        btn_goto_showorder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checklogin()){
-                    Intent intent = new Intent(getActivity(), OrderShowActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(getActivity(),"您尚未登录",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//
+//        btn_goto_showorder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (checklogin()){
+//                    Intent intent = new Intent(getActivity(), OrderShowActivity.class);
+//                    startActivity(intent);
+//                }
+//                else {
+//                    Toast.makeText(getActivity(),"您尚未登录",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
     }
 }

@@ -67,13 +67,15 @@ public class AddFragment extends Fragment {
     private TextView text_temp;
     private SeekBar seekbar_temp;
     private Switch aSwitch_ster;
+    private Switch aSwitch_temp;
 
     private Button btn_goto_submit;
 
     private final static int ORDERADD_JUDGE = 1;
     //订单数据
-    private String temp;
+    private String temp = "0";
     private String ster = "off";
+    private String temp_switch = "off";
     private int RequestCode = 1;
 
     DateFormat format= DateFormat.getDateTimeInstance();
@@ -92,7 +94,9 @@ public class AddFragment extends Fragment {
         text_order_endtime = (TextView) getActivity().findViewById(R.id.text_order_endhour);
         text_temp = (TextView) getActivity().findViewById(R.id.text_temp);
         seekbar_temp = (SeekBar) getActivity().findViewById(R.id.seekBar_temp);
+        seekbar_temp.setEnabled(false);//默认关闭
         aSwitch_ster = (Switch) getActivity().findViewById(R.id.switch_sterilization);
+        aSwitch_temp = (Switch) getActivity().findViewById(R.id.switch_temp);
 
         btn_goto_submit = (Button) getActivity().findViewById(R.id.btn_goto_submit);
     }
@@ -166,6 +170,23 @@ public class AddFragment extends Fragment {
                 showTimePickerDialog(getActivity(),2, text_order_endtime, calendar);
             }
         });
+        //选择是否打开控温
+        aSwitch_temp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Toast.makeText(getActivity(),"开启控温",Toast.LENGTH_SHORT).show();
+                     temp_switch = "on";
+                     seekbar_temp.setEnabled(true);
+                }
+                else {
+                    Toast.makeText(getActivity(),"关闭控温",Toast.LENGTH_SHORT).show();
+                    temp_switch = "off";
+                    seekbar_temp.setEnabled(false);
+                }
+
+            }
+        });
         //选择温度
         seekbar_temp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -221,8 +242,12 @@ public class AddFragment extends Fragment {
                         order.setOrder_box_number(text_order_boxnumber.getText().toString());
                         order.setOrder_use_start_time(starttime);
                         order.setOrder_use_end_time(endtime);
-                        order.setOrder_temp(temp);
+                        // order.setOrder_temp(temp);
                         order.setOrder_sterilization(ster);
+                        order.setOrder_temp_switch(temp_switch);
+                        if (temp_switch == "on"){
+                            order.setOrder_temp(temp);
+                        }
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder (getActivity());//通过AlertDialog.Builder创建出一个AlertDialog的实例
                         dialog.setTitle("请确认！");//设置对话框的标题
