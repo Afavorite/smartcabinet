@@ -1,6 +1,7 @@
 package com.app2018212763.smartcabinet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import androidx.fragment.app.FragmentManager;
@@ -138,5 +139,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean checklogin(){
         SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
         return !sp.getString("id", "").equals("");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //重载方法，让homefragment获取到扫描二维码的结果
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment currentFragment = fg1;
+        currentFragment.onActivityResult(requestCode, resultCode, data);
     }
 }
