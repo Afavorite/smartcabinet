@@ -221,6 +221,7 @@ public class AddFragment extends Fragment {
             }
         });
 
+        //订单提交按钮
         btn_goto_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
