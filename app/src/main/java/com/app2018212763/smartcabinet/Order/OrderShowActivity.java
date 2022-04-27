@@ -10,8 +10,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.app2018212763.smartcabinet.Bean.Box;
 import com.app2018212763.smartcabinet.Bean.Order;
@@ -27,8 +31,11 @@ public class OrderShowActivity extends AppCompatActivity {
 
     private Button btn_order_refresh;
     private ListView lv_order_info;
+    private Spinner spinner_order;
     private final static int INITORDERINFO = 1;
     private final static int UPDATEORDERINFO = 2;
+
+    String selected;
 
     LinkedList<Order> orders = new LinkedList<>();
     OrderAdapter orderAdapter = new OrderAdapter(orders,OrderShowActivity.this);
@@ -36,6 +43,7 @@ public class OrderShowActivity extends AppCompatActivity {
     void Bindview(){
         btn_order_refresh = (Button) findViewById(R.id.btn_order_refresh);
         lv_order_info = (ListView) findViewById(R.id.lv_order_info);
+        spinner_order = (Spinner) findViewById(R.id.spinner_order);
     }
 
     @Override
@@ -45,6 +53,7 @@ public class OrderShowActivity extends AppCompatActivity {
 
         Bindview();
         onclicklistener();
+        selected = "all";
         NewThread(INITORDERINFO);
     }
 
@@ -55,6 +64,41 @@ public class OrderShowActivity extends AppCompatActivity {
                 NewThread(UPDATEORDERINFO);
             }
         });
+
+        spinner_order.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String i = spinner_order.getSelectedItem().toString();
+                switch (i){
+                    case "所有":
+                        selected = "all";
+                        break;
+                    case "已预定":
+                        selected = "booking";
+                        break;
+                    case "使用中":
+                        selected = "using";
+                        break;
+                    case "已结束":
+                        selected = "finish";
+                }
+                NewThread(UPDATEORDERINFO);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        lv_order_info.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(OrderShowActivity.this, position + "号位置被点击", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     void NewThread(int msg){
@@ -63,7 +107,7 @@ public class OrderShowActivity extends AppCompatActivity {
             public void run() {
                 //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
                 SharedPreferences sp = Objects.requireNonNull(OrderShowActivity.this).getSharedPreferences("user", Context.MODE_PRIVATE);
-                String result = HttpOrder.GetOrderInfo(sp.getString("id",""), "all");
+                String result = HttpOrder.GetOrderInfo(sp.getString("id",""), selected);
                 Bundle bundle = new Bundle();
                 bundle.putString("result",result);
                 Message message = new Message();
@@ -89,7 +133,7 @@ public class OrderShowActivity extends AppCompatActivity {
                     try {
                         if (!result.equals("")){
                             parseOrderJson(result);
-                            // lv_box_info.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+//                            lv_order_info.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
                             lv_order_info.setAdapter(orderAdapter);
                         }
                     }catch (NullPointerException e){
@@ -107,6 +151,7 @@ public class OrderShowActivity extends AppCompatActivity {
                             orders.clear();
                             parseOrderJson(result);
                             orderAdapter.notifyDataSetChanged();
+//                            Toast.makeText(OrderShowActivity.this,result,Toast.LENGTH_SHORT).show();
                         }
                     }catch (NullPointerException e){
                         e.printStackTrace();
@@ -117,7 +162,7 @@ public class OrderShowActivity extends AppCompatActivity {
         }
     };
 
-    //解析box的json数据
+    //解析order的json数据
     private void parseOrderJson(String json){
         try{
             JSONArray jsonArray = new JSONArray(json);
@@ -125,6 +170,18 @@ public class OrderShowActivity extends AppCompatActivity {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 Order order = new Order();
                 order.setOrder_number(jsonObject.getString("order_number"));
+                order.setOrder_creator(jsonObject.getString("order_creator"));
+                order.setOrder_box_number(jsonObject.getString("order_box_number"));
+                order.setOrder_temp_switch(jsonObject.getString("order_temp_switch"));
+                if (order.getOrder_temp_switch().equals("on")){
+                    order.setOrder_temp(jsonObject.getString("order_temp"));
+                }
+                order.setOrder_sterilization(jsonObject.getString("order_sterilization"));
+                order.setOrder_status(jsonObject.getString("order_status"));
+                order.setOrder_create_time(jsonObject.getString("order_create_time"));
+                if (order.getOrder_status().equals("finish")){
+                    order.setOrder_end_time(jsonObject.getString("order_end_time"));
+                }
                 orders.add(order);
             }
         }catch (Exception e){e.printStackTrace();}
