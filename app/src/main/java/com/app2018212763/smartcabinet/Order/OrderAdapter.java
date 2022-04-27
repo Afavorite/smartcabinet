@@ -108,38 +108,74 @@ public class OrderAdapter extends BaseAdapter {
         final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item,
-                    null);
-            viewHolder.bt1 = (Button) convertView.findViewById(R.id.bt1);
-            viewHolder.bt2 = (Button) convertView.findViewById(R.id.bt2);
-            viewHolder.tv = (TextView) convertView.findViewById(R.id.tv);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.listview_order, null);
+            viewHolder.txt_order_number = (TextView) convertView.findViewById(R.id.text_show_order_number);
+            viewHolder.txt_order_creator = (TextView) convertView.findViewById(R.id.text_show_order_creator);
+            viewHolder.txt_order_box_number = (TextView) convertView.findViewById(R.id.text_show_order_box_number);
+            viewHolder.txt_order_status = (TextView) convertView.findViewById(R.id.text_show_order_status);
+            viewHolder.txt_order_temp = (TextView) convertView.findViewById(R.id.text_show_order_temp);
+            viewHolder.txt_order_ster = (TextView) convertView.findViewById(R.id.text_show_order_ster);
+            viewHolder.txt_order_start_time = (TextView) convertView.findViewById(R.id.text_show_order_start_time);
+            viewHolder.txt_order_end_time = (TextView) convertView.findViewById(R.id.text_show_order_end_time);
+            viewHolder.btn_function = (Button) convertView.findViewById(R.id.btn_order_function);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.bt1.setOnClickListener(this);
-        viewHolder.bt2.setOnClickListener(this);
-        viewHolder.bt1.setTag(position);
-        viewHolder.bt2.setTag(position);
-        viewHolder.tv.setText(mList.get(position));
+//        viewHolder.btn_function.setOnClickListener((View.OnClickListener) this);
+//        viewHolder.btn_function.setTag(position);
+
+        String status, temp, ster, endtime, fuction;
+        // 状态
+        switch (mData.get(position).getOrder_status()){
+            case "using":
+            case "unlock":
+                status = "使用中";
+                break;
+            case "booking":
+                status = "预约中";
+                break;
+            default:
+                status = "已结束";
+        }
+
+        //温控
+        if (mData.get(position).getOrder_temp_switch().equals("on")){ temp = mData.get(position).getOrder_temp(); }
+        else{ temp = "未打开";}
+
+        //紫外线灯
+        if (mData.get(position).getOrder_sterilization().equals("on")){ ster = "开启"; }
+        else{ ster = "关闭"; }
+
+        //订单结束时间
+        if (mData.get(position).getOrder_status().equals("finish")){ endtime = mData.get(position).getOrder_end_time(); }
+        else endtime = "订单尚未结束";
+
+        //功能按钮
+        if (mData.get(position).getOrder_status().equals("finish")){ fuction = "删除记录"; }
+        else fuction = "结束订单";
+
+        viewHolder.txt_order_number.setText("订单号:"+mData.get(position).getOrder_number());
+        viewHolder.txt_order_creator.setText("新建者:"+mData.get(position).getOrder_creator());
+        viewHolder.txt_order_box_number.setText("箱柜号:"+mData.get(position).getOrder_box_number());
+        viewHolder.txt_order_status.setText("当前状态:"+status);
+        viewHolder.txt_order_temp.setText("当前温控:"+temp+"℃");
+        viewHolder.txt_order_ster.setText("当前杀菌:"+ster);
+        viewHolder.txt_order_start_time.setText("订单创建时间:"+mData.get(position).getOrder_create_time());
+        viewHolder.txt_order_end_time.setText("订单结束时间:"+endtime);
+        viewHolder.btn_function.setText(fuction);
         return convertView;
     }
 
     public final static class ViewHolder {
-        Button bt1, bt2;
-        TextView tv;
-    }
-
-    interface InnerItemOnclickListener {
-        void itemClick(View v);
-    }
-
-    public void setOnInnerItemOnClickListener(InnerItemOnclickListener listener){
-        this.mListener=listener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        mListener.itemClick(v);
+        TextView txt_order_number;
+        TextView txt_order_creator;
+        TextView txt_order_box_number;
+        TextView txt_order_status;
+        TextView txt_order_temp;
+        TextView txt_order_ster;
+        TextView txt_order_start_time;
+        TextView txt_order_end_time;
+        Button btn_function;
     }
 }
