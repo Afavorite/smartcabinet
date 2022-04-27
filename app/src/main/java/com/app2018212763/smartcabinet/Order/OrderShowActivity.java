@@ -36,6 +36,8 @@ public class OrderShowActivity extends AppCompatActivity implements View.OnClick
     private Spinner spinner_order;
     private final static int INITORDERINFO = 1;
     private final static int UPDATEORDERINFO = 2;
+    private final static int FINISHTHEORDER = 3;
+    private final static int DELETETHEORDER = 4;
 
     String selected;
 
@@ -56,14 +58,14 @@ public class OrderShowActivity extends AppCompatActivity implements View.OnClick
         Bindview();
         onclicklistener();
         selected = "all";
-        NewThread(INITORDERINFO);
+        NewThread(INITORDERINFO, "");
     }
 
     void onclicklistener(){
         btn_order_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewThread(UPDATEORDERINFO);
+                NewThread(UPDATEORDERINFO, "");
             }
         });
 
@@ -84,7 +86,7 @@ public class OrderShowActivity extends AppCompatActivity implements View.OnClick
                     case "已结束":
                         selected = "finish";
                 }
-                NewThread(UPDATEORDERINFO);
+                NewThread(UPDATEORDERINFO, "");
             }
 
             @Override
@@ -103,19 +105,47 @@ public class OrderShowActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    void NewThread(int msg){
+    void NewThread(int msg, String order_number){
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
-                SharedPreferences sp = Objects.requireNonNull(OrderShowActivity.this).getSharedPreferences("user", Context.MODE_PRIVATE);
-                String result = HttpOrder.GetOrderInfo(sp.getString("id",""), selected);
-                Bundle bundle = new Bundle();
-                bundle.putString("result",result);
-                Message message = new Message();
-                message.setData(bundle);
-                message.what = msg;
-                handler.sendMessage(message);
+                String result;
+                Bundle bundle;
+                Message message;
+                switch (msg){
+                    case 1:
+                    case 2:
+                        //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
+                        SharedPreferences sp = Objects.requireNonNull(OrderShowActivity.this).getSharedPreferences("user", Context.MODE_PRIVATE);
+                        result = HttpOrder.GetOrderInfo(sp.getString("id",""), selected);
+                        bundle = new Bundle();
+                        bundle.putString("result",result);
+                        message = new Message();
+                        message.setData(bundle);
+                        message.what = msg;
+                        handler.sendMessage(message);
+                        break;
+                    case 3:
+                        result = HttpOrder.FinishOrder(order_number);
+                        bundle = new Bundle();
+                        bundle.putString("result",result);
+                        message = new Message();
+                        message.setData(bundle);
+                        message.what = msg;
+                        handler.sendMessage(message);
+                        break;
+                    case 4:
+                        result = HttpOrder.DeleteOrder(order_number);
+                        bundle = new Bundle();
+                        bundle.putString("result",result);
+                        message = new Message();
+                        message.setData(bundle);
+                        message.what = msg;
+                        handler.sendMessage(message);
+                        break;
+
+                }
+
             }
         }).start();
     }
@@ -140,6 +170,7 @@ public class OrderShowActivity extends AppCompatActivity implements View.OnClick
                     }catch (NullPointerException e){
                         e.printStackTrace();
                     }
+                    break;
                 }
                 //重新获取json更新列表
                 case UPDATEORDERINFO:{
@@ -157,8 +188,34 @@ public class OrderShowActivity extends AppCompatActivity implements View.OnClick
                     }catch (NullPointerException e){
                         e.printStackTrace();
                     }
+                    break;
                 }
-                break;
+                // 结束订单结果
+                case FINISHTHEORDER:{
+                    Bundle bundle = new Bundle();
+                    bundle = msg.getData();
+                    String result = bundle.getString("result");
+                    if (result.equals("finish_success")){
+                        Toast.makeText(OrderShowActivity.this, "订单结束成功", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(OrderShowActivity.this, "订单结束失败", Toast.LENGTH_SHORT).show();
+                    }
+                    NewThread(UPDATEORDERINFO, "");
+                    break;
+                }
+                case DELETETHEORDER:{
+                    Bundle bundle = new Bundle();
+                    bundle = msg.getData();
+                    String result = bundle.getString("result");
+                    if (result.equals("delete_success")){
+                        Toast.makeText(OrderShowActivity.this, "订单删除成功", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(OrderShowActivity.this, "订单删除失败", Toast.LENGTH_SHORT).show();
+                    }
+                    NewThread(UPDATEORDERINFO, "");
+                }
             }
         }
     };
@@ -188,25 +245,43 @@ public class OrderShowActivity extends AppCompatActivity implements View.OnClick
         }catch (Exception e){e.printStackTrace();}
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.btn_order_function:   //lv条目中 iv_del
-                final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
+                final String order_number = (String) v.getTag(R.id.tag_order_number); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
+                final String order_status = (String) v.getTag(R.id.tag_order_status); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
 
-                //点击删除按钮之后，给出dialog提示
                 AlertDialog.Builder builder = new AlertDialog.Builder(OrderShowActivity.this);
-                builder.setTitle( position + "号位置的删除按钮被点击，确认删除?");
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
+
+                switch (order_status){
+                    case "booking":
+                        builder.setTitle("箱柜还未开始使用，确定要结束订单么？");
+                        builder.setNegativeButton("取消", (dialog, which) -> {
+                        });
+                        builder.setPositiveButton("确定", (dialog, which) -> { NewThread(FINISHTHEORDER, order_number);
+                        });
+                        break;
+                    case "unlock":
+                        builder.setTitle("将物品全部取出后请关上柜门，刷新订单界面，再点击结束订单");
+                        builder.setPositiveButton("确定", (dialog, which) -> {
+                        });
+                        break;
+                    case "using":
+                        builder.setTitle("请确认您的个人物品已经全部取出");
+                        builder.setNegativeButton("取消", (dialog, which) -> {
+                        });
+                        builder.setPositiveButton("确定", (dialog, which) -> { NewThread(FINISHTHEORDER, order_number);
+                        });
+                        break;
+                    case "finish":
+                        builder.setTitle("确认要删除订单数据么，删除后无法恢复");
+                        builder.setNegativeButton("取消", (dialog, which) -> {
+                        });
+                        builder.setPositiveButton("确定", (dialog, which) -> { NewThread(DELETETHEORDER, order_number);
+                        });
+                }
                 builder.show();
                 break;
         }

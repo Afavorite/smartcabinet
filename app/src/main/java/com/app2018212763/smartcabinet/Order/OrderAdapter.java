@@ -126,7 +126,8 @@ public class OrderAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.btn_function.setOnClickListener(listener);
-        viewHolder.btn_function.setTag(position);
+        viewHolder.btn_function.setTag(R.id.tag_order_number, mData.get(position).getOrder_number());
+        viewHolder.btn_function.setTag(R.id.tag_order_status, mData.get(position).getOrder_status());
 
         String status, temp, ster, endtime, fuction;
         // 状态
