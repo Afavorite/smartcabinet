@@ -22,11 +22,13 @@ import java.util.LinkedList;
 
 public class OrderAdapter extends BaseAdapter {
     private LinkedList<Order> mData;
-    private Context mContext;
+    // private Context mContext;
+    private View.OnClickListener listener;
 
-    public OrderAdapter(LinkedList<Order> mData, Context mContext) {
+    public OrderAdapter(LinkedList<Order> mData, View.OnClickListener listener) {
         this.mData = mData;
-        this.mContext = mContext;
+        // this.mContext = mContext;
+        this.listener = listener;
     }
 
     @Override
@@ -103,12 +105,13 @@ public class OrderAdapter extends BaseAdapter {
 //        return convertView;
 //    }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.listview_order, null);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_order, null);
             viewHolder.txt_order_number = (TextView) convertView.findViewById(R.id.text_show_order_number);
             viewHolder.txt_order_creator = (TextView) convertView.findViewById(R.id.text_show_order_creator);
             viewHolder.txt_order_box_number = (TextView) convertView.findViewById(R.id.text_show_order_box_number);
@@ -122,8 +125,8 @@ public class OrderAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        viewHolder.btn_function.setOnClickListener((View.OnClickListener) this);
-//        viewHolder.btn_function.setTag(position);
+        viewHolder.btn_function.setOnClickListener(listener);
+        viewHolder.btn_function.setTag(position);
 
         String status, temp, ster, endtime, fuction;
         // 状态

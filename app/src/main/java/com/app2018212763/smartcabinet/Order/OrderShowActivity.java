@@ -1,9 +1,11 @@
 package com.app2018212763.smartcabinet.Order;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +29,7 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class OrderShowActivity extends AppCompatActivity {
+public class OrderShowActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btn_order_refresh;
     private ListView lv_order_info;
@@ -133,7 +135,6 @@ public class OrderShowActivity extends AppCompatActivity {
                     try {
                         if (!result.equals("")){
                             parseOrderJson(result);
-//                            lv_order_info.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
                             lv_order_info.setAdapter(orderAdapter);
                         }
                     }catch (NullPointerException e){
@@ -187,4 +188,27 @@ public class OrderShowActivity extends AppCompatActivity {
         }catch (Exception e){e.printStackTrace();}
     }
 
+    @Override
+    public void onClick(View v){
+        switch (v.getId()) {
+            case R.id.btn_order_function:   //lv条目中 iv_del
+                final int position = (int) v.getTag(); //获取被点击的控件所在item 的位置，setTag 存储的object，所以此处要强转
+
+                //点击删除按钮之后，给出dialog提示
+                AlertDialog.Builder builder = new AlertDialog.Builder(OrderShowActivity.this);
+                builder.setTitle( position + "号位置的删除按钮被点击，确认删除?");
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.show();
+                break;
+        }
+    }
 }
