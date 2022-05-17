@@ -63,9 +63,15 @@ public class MineFragment extends Fragment {
         if (checklogin()) {
             SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
             showuserid.setText("欢迎:"+sp.getString("id",""));
+            btn_goto_login.setVisibility(View.GONE);
+            if (sp.getString("id","").equals("1000000001")){
+                visibilitychange("isadmin");
+            }
+            else { visibilitychange("notadmin");}
         }
         else{
             showuserid.setText("您尚未登录");
+            visibilitychange("notlogin");
         }
         clicklistener();
 
@@ -75,6 +81,27 @@ public class MineFragment extends Fragment {
     public boolean checklogin(){
         SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
         return !sp.getString("id", "").equals("");
+    }
+
+    //根据登录状态设置控件的可见性
+    public void visibilitychange(String status){
+        switch (status){
+            case "notlogin":
+                btn_goto_login.setVisibility(View.VISIBLE);
+                btn_logout.setVisibility(View.GONE);
+                btn_admin.setVisibility(View.GONE);
+                break;
+            case "notadmin":
+                btn_goto_login.setVisibility(View.GONE);
+                btn_logout.setVisibility(View.VISIBLE);
+                btn_admin.setVisibility(View.GONE);
+                break;
+            case "isadmin":
+                btn_goto_login.setVisibility(View.GONE);
+                btn_logout.setVisibility(View.VISIBLE);
+                btn_admin.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     //按键检测
@@ -109,6 +136,7 @@ public class MineFragment extends Fragment {
                             SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
                             sp.edit().putString("id","").apply();
                             showuserid.setText("您尚未登录");
+                            visibilitychange("notlogin");
 
                         }
                     });
