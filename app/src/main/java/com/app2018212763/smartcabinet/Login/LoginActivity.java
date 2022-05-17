@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
                             //注册成功保留登录信息
                             SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
-                            sp.edit().putString("id",id.getText().toString()).commit();
+                            sp.edit().putString("id",id.getText().toString()).apply();
 
                             finish();
                             MainActivity.mainActivity.finish();//销毁旧的activity

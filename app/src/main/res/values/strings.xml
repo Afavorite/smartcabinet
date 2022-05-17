@@ -7,7 +7,9 @@
     <string name="btn_login">登录</string>
     <string name="btn_logout">注销</string>
     <string name="showorder">订单</string>
+    <string name="btn_admin">管理员功能</string>
+    <string name="btn_about">关于</string>
 
-    <item type="id" name="tag_order_number" />
-    <item type="id" name="tag_order_status" />
+    <item name="tag_order_number" type="id" />
+    <item name="tag_order_status" type="id" />
 </resources>

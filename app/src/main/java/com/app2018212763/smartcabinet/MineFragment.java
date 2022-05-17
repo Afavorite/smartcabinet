@@ -28,6 +28,8 @@ public class MineFragment extends Fragment {
 
     private Button btn_goto_login;
     private Button btn_logout;
+    private Button btn_admin;
+    private Button btn_about;
 //    private Button btn_goto_showorder;
 
     public MineFragment() {
@@ -46,7 +48,8 @@ public class MineFragment extends Fragment {
         showuserid = (TextView) getActivity().findViewById(R.id.showuserid);
         btn_goto_login = (Button) Objects.requireNonNull(getActivity()).findViewById(R.id.btn_goto_login);
         btn_logout = (Button) getActivity().findViewById(R.id.btn_logout);
-//        btn_goto_showorder = (Button) getActivity().findViewById(R.id.btn_goto_showorder);
+        btn_admin = (Button) getActivity().findViewById(R.id.btn_admin);
+        btn_about = (Button) getActivity().findViewById(R.id.btn_about);
     }
 
     @SuppressLint("SetTextI18n")
@@ -74,7 +77,7 @@ public class MineFragment extends Fragment {
         return !sp.getString("id", "").equals("");
     }
 
-
+    //按键检测
     public void clicklistener(){
         btn_goto_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +109,7 @@ public class MineFragment extends Fragment {
                             SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
                             sp.edit().putString("id","").apply();
                             showuserid.setText("您尚未登录");
+
                         }
                     });
                     dialog.setNegativeButton("取消", new DialogInterface. OnClickListener() {//取消按钮的点击事件
@@ -120,19 +124,30 @@ public class MineFragment extends Fragment {
                 }
             }
         });
-//
-//        btn_goto_showorder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (checklogin()){
-//                    Intent intent = new Intent(getActivity(), OrderShowActivity.class);
-//                    startActivity(intent);
-//                }
-//                else {
-//                    Toast.makeText(getActivity(),"您尚未登录",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+
+        btn_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (checklogin()){
+                    SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
+                    if (sp.getString("id", "").equals("1000000001")){
+
+                    }
+                }
+                else{
+                    Toast.makeText(getActivity(),"您尚未登录",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 }
