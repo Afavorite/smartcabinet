@@ -191,6 +191,8 @@
             android:layout_height="55dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:max="40"
+            android:min="30"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.313"
             app:layout_constraintStart_toEndOf="@+id/text_temp"

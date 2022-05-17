@@ -191,7 +191,7 @@ public class AddFragment extends Fragment {
         seekbar_temp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                text_temp.setText("箱柜设置温度" + progress + "  / 100 ");
+                text_temp.setText("箱柜设置温度" + progress + "℃");
                 temp = String.valueOf(progress);
             }
 
