@@ -15,7 +15,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         bindview();
-        text_about.setText("智能储物app\n遇到困难请联系管理员\nlai_kaiwen@qq.com");
+        text_about.setText("智能储物app\n遇到困难请联系管理员\n邮箱:lai_kaiwen@qq.com");
     }
 
     public void bindview(){
