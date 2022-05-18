@@ -164,11 +164,11 @@ public class MineFragment extends Fragment {
         btn_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (checklogin()){
                     SharedPreferences sp = Objects.requireNonNull(getActivity()).getSharedPreferences("user", Context.MODE_PRIVATE);
                     if (sp.getString("id", "").equals("1000000001")){
-
+                        Intent intent = new Intent(getActivity(), AdminActivity.class);
+                        startActivity(intent);
                     }
                 }
                 else{

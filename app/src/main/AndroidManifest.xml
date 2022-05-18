@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Smartcabinet"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".adminActivity"
+            android:name=".AdminActivity"
             android:exported="false" />
         <activity
             android:name=".AboutActivity"
