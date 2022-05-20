@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import java.util.Objects;
 
 public class AdminActivity extends AppCompatActivity {
 
-    private TextView text_admin_boxselect;
+    private TextView edit_admin_boxselect;
     private Button btn_admin_control;
     private Button btn_admin_stopcontrol;
     private Button btn_admin_opendoor;
@@ -41,29 +42,20 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void bindview(){
-        text_admin_boxselect = (TextView) findViewById(R.id.text_admin_boxselect);
+        edit_admin_boxselect = (TextView) findViewById(R.id.edit_admin_boxselect);
         btn_admin_control = (Button) findViewById(R.id.btn_admin_control);
         btn_admin_stopcontrol = (Button) findViewById(R.id.btn_admin_stopcontrol);
         btn_admin_opendoor = (Button) findViewById(R.id.btn_admin_opendoor);
     }
 
     public void clicklistener(){
-        //选择箱柜号
-        text_admin_boxselect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AdminActivity.this, BoxSelectActivity.class);
-                startActivityForResult(intent,RequestCode);
-            }
-        });
-
         btn_admin_control.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences sp = AdminActivity.this.getSharedPreferences("user", Context.MODE_PRIVATE);
                 Order order = new Order();
                 order.setOrder_creator(sp.getString("id",""));
-                order.setOrder_box_number(text_admin_boxselect.getText().toString());
+                order.setOrder_box_number(edit_admin_boxselect.getText().toString());
                 order.setOrder_use_start_time("2000-03-12 00:00:00");
                 order.setOrder_use_end_time("2000-03-12 00:00:01");
                 order.setOrder_sterilization("off");
@@ -100,15 +92,35 @@ public class AdminActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-    }
 
-    //箱柜选择后返回数据并显示
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1&&resultCode==2){
-            text_admin_boxselect.setText(data.getStringExtra("box_number"));
-        }
+        //停止控制按钮
+        btn_admin_stopcontrol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder (AdminActivity.this);//通过AlertDialog.Builder创建出一个AlertDialog的实例
+                dialog.setTitle("请确认！");//设置对话框的标题
+                dialog.setMessage("确认控制？");//设置对话框的内容
+                dialog.setCancelable(false);//设置对话框是否可以取消
+                dialog.setPositiveButton("确认", new DialogInterface. OnClickListener() {//确定按钮的点击事件
+                    @Override
+                    //点击确定，清空信息
+                    public void onClick(DialogInterface dialog, int which) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        }).start();
+                    }
+                });
+                dialog.setNegativeButton("取消", new DialogInterface. OnClickListener() {//取消按钮的点击事件
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                dialog.show();
+            }
+        });
     }
 
     @SuppressLint("HandlerLeak")
@@ -123,11 +135,11 @@ public class AdminActivity extends AppCompatActivity {
                     String result = bundle.getString("result");
                     //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
                     try {
-                        if (result.equals("success")) {
-                            Toast.makeText(AdminActivity.this,"控制成功！",Toast.LENGTH_SHORT).show();
-                        }
                         if (result.equals("fail")){
-                            Toast.makeText(AdminActivity.this,"控制失败！",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminActivity.this,"控制失败or已经控制！",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(AdminActivity.this,"控制失败or已经控制！",Toast.LENGTH_SHORT).show();
                         }
                     }catch (NullPointerException e){
                         e.printStackTrace();
@@ -137,4 +149,26 @@ public class AdminActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("提示：");
+            builder.setMessage("退出将停止控制，您确定退出？");
+
+            //设置确定按钮
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            //设置取消按钮
+            builder.setNegativeButton("取消",null);
+            //显示提示框
+            builder.show();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

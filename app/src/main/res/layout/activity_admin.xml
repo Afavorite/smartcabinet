@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".AdminActivity">
 
-    <TextView
-        android:id="@+id/text_admin_boxselect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="选择储物柜"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btn_admin_control"
         android:layout_width="wrap_content"
@@ -25,7 +14,7 @@
         android:text="控制储物柜"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_admin_boxselect" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_admin_boxselect" />
 
     <Button
         android:id="@+id/btn_admin_opendoor"
@@ -47,4 +36,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_admin_control" />
+
+    <EditText
+        android:hint="输入储物柜号"
+        android:id="@+id/edit_admin_boxselect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

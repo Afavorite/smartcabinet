@@ -303,14 +303,14 @@ public class AddFragment extends Fragment {
                     String result = bundle.getString("result");
                     //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
                     try {
-                        if (result.equals("success")) {
+                        if (result.equals("fail")){
+                            Toast.makeText(getActivity(),"提交失败！",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
                             Toast.makeText(getActivity(),"提交成功！",Toast.LENGTH_SHORT).show();
                             getActivity().finish();
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
-                        }
-                        if (result.equals("fail")){
-                            Toast.makeText(getActivity(),"提交失败！",Toast.LENGTH_SHORT).show();
                         }
                     }catch (NullPointerException e){
                         e.printStackTrace();
