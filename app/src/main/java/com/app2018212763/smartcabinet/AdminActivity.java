@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.app2018212763.smartcabinet.Bean.Order;
 import com.app2018212763.smartcabinet.Order.BoxSelectActivity;
 import com.app2018212763.smartcabinet.Order.HttpOrder;
@@ -35,6 +36,7 @@ public class AdminActivity extends AppCompatActivity {
 
     private final static int ADMINCONTROL_JUDGE = 1;
     private final static int ADMINSTOPCONTROL_JUDGE = 2;
+    private final static int UNLOCK_JUDGE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +130,31 @@ public class AdminActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        //开门按钮
+        btn_admin_opendoor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject jsonObject = new JSONObject();
+                SharedPreferences sp = Objects.requireNonNull(AdminActivity.this).getSharedPreferences("user", Context.MODE_PRIVATE);
+                jsonObject.put("box", edit_admin_boxselect.getText().toString());
+                jsonObject.put("user", sp.getString("id",""));
+                jsonObject.toString();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //使用下面类里的函数，连接servlet，返回一个result，使用handler处理这个result
+                        String result = HttpOrder.unlock(jsonObject.toString());
+                        Bundle bundle = new Bundle();
+                        bundle.putString("result",result);
+                        Message message = new Message();
+                        message.setData(bundle);
+                        message.what = UNLOCK_JUDGE;
+                        handler.sendMessage(message);
+                    }
+                }).start();
+            }
+        });
     }
 
     @SuppressLint("HandlerLeak")
@@ -165,20 +192,41 @@ public class AdminActivity extends AppCompatActivity {
                     String result = bundle.getString("result");
                     try {
                         if (result.equals("finish_success")) {
-                            Toast.makeText(AdminActivity.this, "取消控制成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminActivity.this, "停止控制成功", Toast.LENGTH_SHORT).show();
                             edit_admin_boxselect.setEnabled(true);
                             btn_admin_control.setVisibility(View.VISIBLE);
                             btn_admin_stopcontrol.setVisibility(View.GONE);
                             btn_admin_opendoor.setVisibility(View.GONE);
                             isControlling = false;
                         } else {
-                            Toast.makeText(AdminActivity.this, "取消失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminActivity.this, "停止失败", Toast.LENGTH_SHORT).show();
                         }
                     }catch (NullPointerException e){
                         e.printStackTrace();
                     }
                     break;
                 }
+                case UNLOCK_JUDGE:{
+                    Bundle bundle = new Bundle();
+                    bundle = msg.getData();
+                    String result = bundle.getString("result");
+                    //Toast.makeText(MainActivity.this,result,Toast.LENGTH_SHORT).show();
+                    try {
+                        if (result.equals("already unlock")) {
+                            Toast.makeText(AdminActivity.this,"箱柜已经解锁",Toast.LENGTH_SHORT).show();
+                        }
+                        else if (result.equals("unlock")){
+                            Toast.makeText(AdminActivity.this,"箱柜解锁",Toast.LENGTH_SHORT).show();
+                        }
+                        else if (result.equals("not exist")){
+                            Toast.makeText(AdminActivity.this,"订单不存在，请检查订单内容",Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+
             }
         }
     };
@@ -196,7 +244,6 @@ public class AdminActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         stopcontrol();
-                        finish();
                     }
                 });
                 //设置取消按钮
